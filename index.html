@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devartsx | Premium Handmade Charcoal & Graphite Art</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #090d16;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --accent-blue: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.25);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 15%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(14, 165, 233, 0.05) 0%, transparent 40%);
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: rgba(9, 13, 22, 0.85);
+            backdrop-filter: blur(12px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo { font-size: 1.6rem; font-weight: 800; letter-spacing: 2px; color: #fff; text-decoration: none; }
+        .logo span { color: var(--accent-blue); }
+
+        .nav-links { display: flex; gap: 25px; list-style: none; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover { color: var(--accent-blue); }
+
+        /* Hero Section */
+        .hero {
+            padding: 160px 8% 80px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 30px;
+            color: var(--accent-blue);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 20px; }
+        .hero h1 span {
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 35px; }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: var(--accent-blue);
+            color: #090d16;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 50px;
+            box-shadow: 0 0 20px var(--accent-glow);
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 30px rgba(56, 189, 248, 0.4); }
+
+        /* Sections */
+        .section { padding: 80px 8%; max-width: 1200px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-size: 2.2rem; font-weight: 700; }
+        .section-header p { color: var(--text-muted); margin-top: 8px; }
+
+        /* Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .art-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: 0.4s;
+            position: relative;
+        }
+
+        .art-card:hover { transform: translateY(-8px); border-color: rgba(56, 189, 248, 0.4); }
+        .art-card img { width: 100%; height: 380px; object-fit: cover; display: block; }
+        
+        .art-info {
+            padding: 15px 20px;
+            background: rgba(15, 23, 42, 0.9);
+            border-top: 1px solid var(--border-color);
+        }
+        .art-info h4 { font-size: 1rem; color: #fff; }
+        .art-info p { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* Pricing Cards */
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        
+        .price-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .price-card.popular {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+
+        .price-card.popular::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent-blue);
+            color: #090d16;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 4px 14px;
+            border-radius: 20px;
+        }
+
+        .price-card h3 { font-size: 1.5rem; margin-bottom: 10px; }
+        .price-card .price { font-size: 3rem; font-weight: 800; color: #fff; margin: 15px 0; }
+        .price-card ul { list-style: none; margin: 25px 0; text-align: left; }
+        .price-card ul li { padding: 10px 0; color: var(--text-muted); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .price-card ul li i { color: var(--accent-blue); margin-right: 10px; }
+
+        /* Form Styling */
+        .form-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 650px;
+            margin: 0 auto;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; color: #cbd5e1; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: var(--accent-blue);
+            color: #090d16;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-submit:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Floating WhatsApp Button */
+        .float-wa {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25d366;
+            color: #fff;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+            text-decoration: none;
+            z-index: 1000;
+            transition: 0.3s;
+        }
+        .float-wa:hover { transform: scale(1.1); }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.3rem; }
+            .nav-links { display: none; }
+            .form-box { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <a href="#" class="logo">DEV<span>ARTSX</span></a>
+        <ul class="nav-links">
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#order">Order Commission</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <span class="badge"><i class="fa-solid fa-paintbrush"></i> Charcoal & Graphite Specialist</span>
+        <h1>Bring Your Favorite Photos To Life With <span>Handmade Art</span></h1>
+        <p>Get custom, highly-detailed pencil portraits drawn with premium graphite & charcoal. Perfect for personal keepsakes and memorable gifts.</p>
+        <a href="#order" class="btn-primary"><i class="fa-solid fa-paper-plane"></i> Order Your Sketch Now</a>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="section" id="gallery">
+        <div class="section-header">
+            <h2>Featured Artworks</h2>
+            <p>100% Hand-drawn with Graphite & Charcoal Pencils</p>
+        </div>
+        <div class="gallery-grid">
+            <!-- Replace image paths (src) with your actual uploaded images -->
+            <div class="art-card">
+                <img src="shiva-parvati.jpg" alt="Divine Shiva Parvati Charcoal Sketch">
+                <div class="art-info">
+                    <h4>Shiv Parvati Sketch</h4>
+                    <p>Charcoal & Graphite Medium</p>
+                </div>
+            </div>
+            <div class="art-card">
+                <img src="anime-giyu.jpg" alt="Anime Sketch">
+                <div class="art-info">
+                    <h4>Anime Art (Giyu Tomioka)</h4>
+                    <p>Graphite Pencil Artwork</p>
+                </div>
+            </div>
+            <div class="art-card">
+                <img src="ganesha.jpg" alt="Lord Ganesha Artwork">
+                <div class="art-info">
+                    <h4>Lord Ganesha Portrait</h4>
+                    <p>Detailed Charcoal Art</p>
+                </div>
+            </div>
+            <div class="art-card">
+                <img src="eye-detail.jpg" alt="Hyperrealistic Eye Sketch">
+                <div class="art-info">
+                    <h4>Hyper-Realistic Eye Study</h4>
+                    <p>Graphite Pencil Detail</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="section" id="pricing">
+        <div class="section-header">
+            <h2>Commission Pricing</h2>
+            <p>Choose the size that best fits your room or gift requirements</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="price-card">
+                <h3>A4 Portrait</h3>
+                <p style="color:var(--text-muted);">Ideal for single faces & closeups</p>
+                <div class="price">₹599</div>
+                <ul>
+                    <li><i class="fa-solid fa-check"></i> Size: 8.3 x 11.7 Inches</li>
+                    <li><i class="fa-solid fa-check"></i> Premium Heavyweight Paper</li>
+                    <li><i class="fa-solid fa-check"></i> Graphite & Charcoal Blend</li>
+                    <li><i class="fa-solid fa-check"></i> Fixed Spray Protection Layer</li>
+                </ul>
+                <a href="#order" class="btn-primary" style="width:100%; justify-content:center;">Book A4 Size</a>
+            </div>
+
+            <div class="price-card popular">
+                <h3>A3 Portrait</h3>
+                <p style="color:var(--text-muted);">Best for full detail & couple portraits</p>
+                <div class="price">₹999</div>
+                <ul>
+                    <li><i class="fa-solid fa-check"></i> Size: 11.7 x 16.5 Inches</li>
+                    <li><i class="fa-solid fa-check"></i> High-Detail Charcoal Depth</li>
+                    <li><i class="fa-solid fa-check"></i> Premium Archival Quality Paper</li>
+                    <li><i class="fa-solid fa-check"></i> Fixed Spray Protection Layer</li>
+                </ul>
+                <a href="#order" class="btn-primary" style="width:100%; justify-content:center;">Book A3 Size</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Form Section -->
+    <section class="section" id="order">
+        <div class="section-header">
+            <h2>Place Commission Request</h2>
+            <p>Fill out the details below to initiate your portrait request</p>
+        </div>
+        <div class="form-box">
+            <form onsubmit="sendToWhatsApp(event)">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="phone">WhatsApp Number</label>
+                    <input type="tel" id="phone" required placeholder="Enter active mobile number">
+                </div>
+                <div class="form-group">
+                    <label for="size">Artwork Size</label>
+                    <select id="size" required>
+                        <option value="A4 Size Portrait (₹599)">A4 Size Portrait - ₹599</option>
+                        <option value="A3 Size Portrait (₹999)">A3 Size Portrait - ₹999</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="instructions">Custom Notes / Special Instructions</label>
+                    <textarea id="instructions" rows="4" placeholder="Mention any extra details (e.g., date required, specific background requests)..."></textarea>
+                </div>
+                <button type="submit" class="btn-submit">
+                    <i class="fa-brands fa-whatsapp" style="font-size:1.3rem;"></i> Continue Order on WhatsApp
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Floating WhatsApp Icon -->
+    <a href="https://wa.me/917827417956" target="_blank" class="float-wa" title="Chat on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Devartsx. All Rights Reserved. Crafted for Art Lovers.</p>
+    </footer>
+
+    <!-- JavaScript Functionality -->
+    <script>
+        function sendToWhatsApp(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const size = document.getElementById('size').value;
+            const instructions = document.getElementById('instructions').value;
+            
+            const whatsappNumber = "917827417956"; 
+            
+            const message = `*NEW COMMISSION ORDER - DEVARTSX*%0A%0A` +
+                            `*Customer Name:* ${name}%0A` +
+                            `*Contact Number:* ${phone}%0A` +
+                            `*Selected Size:* ${size}%0A` +
+                            `*Instructions:* ${instructions ? instructions : 'None'}%0A%0A` +
+                            `*(Note: Please attach your reference photo in this WhatsApp chat now)*`;
+
+            window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+        }
+    </script>
+</body>
+</html>
