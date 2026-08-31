@@ -396,24 +396,24 @@
 
     <!-- JavaScript Functionality -->
     <script>
-        function sendToWhatsApp(event) {
-            event.preventDefault();
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const size = document.getElementById('size').value;
-            const instructions = document.getElementById('instructions').value;
-            
-            const whatsappNumber = "917827417956"; 
-            
-            const message = `*NEW COMMISSION ORDER - DEVARTSX*%0A%0A` +
-                            `*Customer Name:* ${name}%0A` +
-                            `*Contact Number:* ${phone}%0A` +
-                            `*Selected Size:* ${size}%0A` +
-                            `*Instructions:* ${instructions ? instructions : 'None'}%0A%0A` +
-                            `*(Note: Please attach your reference photo in this WhatsApp chat now)*`;
+    function sendToWhatsApp(event) {
+        event.preventDefault();
+        const name = document.getElementById('name').value;
+        const phone = document.getElementById('phone').value;
+        const size = document.getElementById('size').value;
+        const instructions = document.getElementById('instructions').value || 'None';
+        
+        const whatsappNumber = "917827417956"; 
+        
+        const rawMessage = `*NEW COMMISSION ORDER - DEVARTSX*\n\n` +
+                           `*Customer Name:* ${name}\n` +
+                           `*Contact Number:* ${phone}\n` +
+                           `*Selected Size:* ${size}\n` +
+                           `*Instructions:* ${instructions}\n\n` +
+                           `*(Note: Please attach your reference photo in this WhatsApp chat now)*`;
 
-            window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
-        }
-    </script>
-</body>
-</html>
+        const encodedMessage = encodeURIComponent(rawMessage);
+        
+        window.location.href = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
+    }
+</script>
