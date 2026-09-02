@@ -902,27 +902,34 @@
         }
 
         // Send Order Direct to WhatsApp
-        function sendToWhatsApp(event) {
-            event.preventDefault();
+function sendToWhatsApp(event) {
+    event.preventDefault();
 
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const size = document.getElementById('size').value;
-            const address = document.getElementById('address').value;
-            const notes = document.getElementById('notes').value || 'None';
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const size = document.getElementById('size').value;
+    const address = document.getElementById('address').value.trim();
+    const notes = document.getElementById('notes').value.trim() || 'None';
 
-            const whatsappNumber = "917827417956";
-            const message = `*NEW SKETCH ORDER - DEVARTSX*\n\n` +
-                            `*Name:* ${name}\n` +
-                            `*Phone:* ${phone}\n` +
-                            `*Selected Size:* ${size}\n` +
-                            `*Delivery Address:* ${address}\n` +
-                            `*Customisation Instructions:* ${notes}\n\n` +
-                            `*(Note: Reference photo will be shared here)*`;
+    // Basic validation (optional check)
+    if (!name || !phone || !address) {
+        alert('Please fill in all required fields (Name, Phone, Address)!');
+        return;
+    }
 
-            window.location.href = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`;
-        }
+    const whatsappNumber = "917827417956";
+    const message = `*NEW SKETCH ORDER - DEVARTSX*\n\n` +
+                    `*Name:* ${name}\n` +
+                    `*Phone:* ${phone}\n` +
+                    `*Selected Size:* ${size}\n` +
+                    `*Delivery Address:* ${address}\n` +
+                    `*Customisation Instructions:* ${notes}\n\n` +
+                    `*(Note: Reference photo will be shared here)*`;
 
+    // Direct wa.me link format with new tab opening
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+}
         // Scroll-reveal for liquid glass cards (mobile-friendly, GPU-light)
         document.addEventListener('DOMContentLoaded', () => {
             const revealTargets = document.querySelectorAll(
