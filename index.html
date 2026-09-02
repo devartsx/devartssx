@@ -3,420 +3,1105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Devartsx | Premium Handmade Charcoal & Graphite Art</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Devartsx - Custom Handmade Sketches</title>
     
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
-            --bg-dark: #090d16;
-            --card-bg: rgba(30, 41, 59, 0.7);
-            --accent-blue: #38bdf8;
-            --accent-glow: rgba(56, 189, 248, 0.25);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border-color: rgba(255, 255, 255, 0.1);
+            --bg-color: #08090c;
+            --text-color: #f2f2f5;
+            --primary-yellow: #ffd700;
+            --gold-glow: rgba(255, 215, 0, 0.4);
+
+            /* Liquid glass tokens */
+            --glass-bg: rgba(255, 255, 255, 0.06);
+            --glass-bg-strong: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.22);
+            --glass-border-soft: rgba(255, 255, 255, 0.12);
+            --glass-highlight: rgba(255, 255, 255, 0.55);
+            --glass-shadow: 0 20px 45px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255,255,255,0.08);
+            --glass-blur: blur(22px) saturate(160%);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html { scroll-behavior: smooth; }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
+            background-color: var(--bg-color);
+            color: var(--text-color);
             overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 20% 15%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(14, 165, 233, 0.05) 0%, transparent 40%);
+            position: relative;
+            animation: fadeInBody 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* Navbar */
-        nav {
+        @keyframes fadeInBody {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Ambient Glowing Background - liquid blobs */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse 80% 60% at 15% 10%, rgba(255, 215, 0, 0.10), transparent 60%),
+                radial-gradient(ellipse 70% 55% at 85% 85%, rgba(255, 200, 60, 0.09), transparent 60%);
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.38;
+            animation: orbFloat 14s infinite alternate ease-in-out;
+            will-change: transform;
+        }
+
+        .orb-1 {
+            width: 380px;
+            height: 380px;
+            background: #ffe566;
+            top: -60px;
+            left: -60px;
+        }
+
+        .orb-2 {
+            width: 420px;
+            height: 420px;
+            background: #fff099;
+            bottom: -80px;
+            right: -60px;
+            animation-delay: -7s;
+        }
+
+        .orb-3 {
+            width: 260px;
+            height: 260px;
+            background: #ffcf4a;
+            top: 45%;
+            left: 50%;
+            opacity: 0.18;
+            animation-duration: 18s;
+        }
+
+        @keyframes orbFloat {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            100% { transform: translate(45px, 55px) scale(1.15) rotate(15deg); }
+        }
+
+        @media (max-width: 768px) {
+            .orb { filter: blur(60px); opacity: 0.3; }
+        }
+
+        /* Top Announcement Bar - glass strip */
+        .announcement-bar {
+            background: linear-gradient(100deg, rgba(184,151,11,0.85), rgba(255,215,0,0.95), rgba(184,151,11,0.85));
+            background-size: 200% auto;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: #111;
+            text-align: center;
+            padding: 9px 15px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            animation: shimmer 3s linear infinite;
+            position: relative;
+            z-index: 1001;
+            letter-spacing: 0.2px;
+        }
+
+        /* Header - liquid glass nav */
+        header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 8%;
-            background: rgba(9, 13, 22, 0.85);
-            backdrop-filter: blur(12px);
-            position: fixed;
-            width: 100%;
+            padding: 14px 8%;
+            background: rgba(15, 15, 18, 0.5);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+            position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--glass-border-soft);
+            transition: background 0.3s ease;
         }
 
-        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: 2px; color: #fff; text-decoration: none; }
-        .logo span { color: var(--accent-blue); }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-        .nav-links { display: flex; gap: 25px; list-style: none; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 500; transition: 0.3s; }
-        .nav-links a:hover { color: var(--accent-blue); }
+        .logo-container img {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid var(--primary-yellow);
+            box-shadow: 0 0 18px var(--gold-glow), inset 0 0 8px rgba(255,255,255,0.2);
+            transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .logo-container img:active,
+        .logo-container img:hover {
+            transform: scale(1.08) rotate(8deg);
+        }
+
+        .logo-container h1 {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-color);
+        }
+
+        .shimmer-text {
+            background: linear-gradient(90deg, #b8970b 0%, #ffd700 50%, #b8970b 100%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            to { background-position: 200% center; }
+        }
+
+        nav {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            font-size: 0.94rem;
+            position: relative;
+            transition: color 0.3s ease, transform 0.25s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: var(--primary-yellow);
+            border-radius: 2px;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        nav a:hover::after { width: 100%; }
+        nav a:hover { color: #ffd700; }
+        nav a:active { transform: scale(0.95); }
+
+        /* Nav Instagram Highlight Link - glass pill */
+        .nav-insta-link {
+            background: linear-gradient(135deg, rgba(240,148,51,0.9), rgba(230,104,60,0.9), rgba(220,39,67,0.9), rgba(204,35,102,0.9), rgba(188,24,136,0.9));
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.25);
+            color: #fff !important;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 18px rgba(220, 39, 67, 0.35);
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease !important;
+        }
+
+        .nav-insta-link::after { display: none !important; }
+        .nav-insta-link:hover { transform: translateY(-2px) scale(1.03); }
+        .nav-insta-link:active { transform: scale(0.96); }
 
         /* Hero Section */
         .hero {
-            padding: 140px 8% 60px;
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
+            padding: 40px 20px;
+            animation: fadeZoomIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+            opacity: 0;
         }
 
-        .badge {
+        @keyframes fadeZoomIn {
+            from { opacity: 0; transform: scale(0.95) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .hero h2 {
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            font-weight: 800;
+            color: var(--text-color);
+        }
+
+        .hero h2 span {
             display: inline-block;
-            padding: 5px 14px;
-            background: rgba(56, 189, 248, 0.1);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            border-radius: 30px;
-            color: var(--accent-blue);
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 15px;
+            background: linear-gradient(135deg, rgba(255,215,0,0.95), rgba(255,193,7,0.9));
+            backdrop-filter: blur(6px);
+            color: #111;
+            padding: 4px 16px;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.4);
+            box-shadow: 0 8px 22px var(--gold-glow), inset 0 1px 0 rgba(255,255,255,0.5);
+            animation: badgePulse 3s infinite ease-in-out;
         }
 
-        .hero h1 { font-size: 3rem; font-weight: 800; line-height: 1.2; margin-bottom: 15px; }
-        .hero h1 span {
-            background: linear-gradient(90deg, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 8px 22px var(--gold-glow), inset 0 1px 0 rgba(255,255,255,0.5); }
+            50% { transform: scale(1.04); box-shadow: 0 16px 38px rgba(255, 215, 0, 0.65), inset 0 1px 0 rgba(255,255,255,0.6); }
         }
 
-        .hero p { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 25px; }
+        .hero p {
+            font-size: 1.15rem;
+            color: #c2c2c8;
+            max-width: 600px;
+            margin-bottom: 25px;
+        }
 
-        .btn-primary {
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* Liquid glass button base */
+        .btn {
+            background: linear-gradient(135deg, rgba(255,215,0,0.95), rgba(255,193,7,0.92));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.4);
+            color: #111;
+            padding: 15px 32px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 28px var(--gold-glow), inset 0 1px 0 rgba(255,255,255,0.5);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+            text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 12px 28px;
-            background: var(--accent-blue);
-            color: #090d16;
-            text-decoration: none;
-            font-weight: 700;
-            border-radius: 50px;
-            box-shadow: 0 0 20px var(--accent-glow);
-            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
         }
 
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 30px rgba(56, 189, 248, 0.4); }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -20%;
+            width: 60%;
+            height: 200%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.55), transparent);
+            transform: rotate(20deg);
+            transition: left 0.6s ease;
+        }
 
-        /* Sections */
-        .section { padding: 60px 8%; max-width: 1100px; margin: 0 auto; }
-        .section-header { text-align: center; margin-bottom: 35px; }
-        .section-header h2 { font-size: 2rem; font-weight: 700; }
-        .section-header p { color: var(--text-muted); margin-top: 6px; font-size: 0.95rem; }
+        .btn:hover::before { left: 130%; }
+        .btn:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 18px 40px rgba(255, 215, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.6);
+        }
+        .btn:active {
+            transform: translateY(-1px) scale(0.98);
+        }
 
-        /* Gallery - Reduced Height and Adjusted */
-        .gallery-grid {
+        /* Hero Instagram Button */
+        .btn-insta {
+            background: linear-gradient(135deg, rgba(240,148,51,0.92), rgba(230,104,60,0.92), rgba(220,39,67,0.92), rgba(204,35,102,0.92), rgba(188,24,136,0.92));
+            color: #fff;
+            box-shadow: 0 10px 28px rgba(220, 39, 67, 0.35), inset 0 1px 0 rgba(255,255,255,0.35);
+        }
+        .btn-insta:hover {
+            box-shadow: 0 18px 40px rgba(220, 39, 67, 0.55), inset 0 1px 0 rgba(255,255,255,0.4);
+        }
+
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            font-size: 2.4rem;
+            margin: 60px 0 30px;
+            font-weight: 800;
+            color: var(--text-color);
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+        }
+        .section-title.in-view { opacity: 1; transform: translateY(0); }
+
+        /* How to Order Steps */
+        .steps-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
+            gap: 25px;
+            padding: 0 8% 40px;
         }
 
-        .art-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            overflow: hidden;
-            transition: 0.4s;
+        /* Liquid glass card base */
+        .step-card, .portfolio-item, .price-card, .testimonial-card, .faq-item, .order-box, .insta-box {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border-soft);
+            box-shadow: var(--glass-shadow);
             position: relative;
         }
 
-        .art-card:hover { transform: translateY(-6px); border-color: rgba(56, 189, 248, 0.4); }
-        .art-card img { width: 100%; height: 280px; object-fit: cover; display: block; }
-        
-        .art-info {
-            padding: 12px 16px;
-            background: rgba(15, 23, 42, 0.9);
-            border-top: 1px solid var(--border-color);
-        }
-        .art-info h4 { font-size: 0.95rem; color: #fff; }
-        .art-info p { font-size: 0.8rem; color: var(--text-muted); }
-
-        /* Pricing Cards */
-        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        
-        .price-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
+        .step-card {
+            border-radius: 22px;
             padding: 30px 25px;
             text-align: center;
-            backdrop-filter: blur(10px);
-            position: relative;
-            transition: 0.3s;
+            transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s ease, background 0.35s ease;
+            opacity: 0;
+            transform: translateY(30px);
         }
 
-        .price-card.popular {
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 30px var(--accent-glow);
+        .step-card.in-view {
+            animation: cardRise 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .price-card.popular::before {
-            content: 'MOST POPULAR';
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--accent-blue);
-            color: #090d16;
-            font-size: 0.7rem;
+        @keyframes cardRise {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-card:hover, .step-card:active {
+            transform: translateY(-8px);
+            background: var(--glass-bg-strong);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.15), 0 0 30px rgba(255,215,0,0.12);
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        .step-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ffe566, #ffd700);
+            color: #111;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 1.4rem;
             font-weight: 800;
-            padding: 3px 12px;
-            border-radius: 20px;
+            box-shadow: 0 6px 18px var(--gold-glow), inset 0 1px 0 rgba(255,255,255,0.5);
+            border: 1px solid rgba(255,255,255,0.35);
         }
 
-        .price-card h3 { font-size: 1.35rem; margin-bottom: 8px; }
-        .price-card .price { font-size: 2.5rem; font-weight: 800; color: #fff; margin: 10px 0; }
-        .price-card ul { list-style: none; margin: 20px 0; text-align: left; }
-        .price-card ul li { padding: 8px 0; color: var(--text-muted); font-size: 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .price-card ul li i { color: var(--accent-blue); margin-right: 8px; }
+        .step-card h4 { font-size: 1.2rem; margin-bottom: 8px; color: var(--text-color); }
+        .step-card p { font-size: 0.9rem; color: #9a9aa2; }
 
-        /* Form Styling - Adjusted/Compact */
-        .form-box {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
+        /* Portfolio Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 0 8% 40px;
+        }
+
+        .portfolio-item {
+            height: 350px;
+            border-radius: 22px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease, border-color 0.4s ease;
+            animation: floatCard 7s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        .portfolio-item.in-view {
+            animation: cardRise 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards, floatCard 7s ease-in-out 0.7s infinite;
+        }
+
+        .portfolio-item:nth-child(even) { animation-delay: 0s, 3.2s; }
+        .portfolio-item:nth-child(even).in-view { animation-delay: 0.15s, 3.35s; }
+
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .portfolio-item:hover, .portfolio-item:active {
+            animation-play-state: paused;
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 28px 55px rgba(255, 215, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.15);
+            border-color: rgba(255, 215, 0, 0.55);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .portfolio-item:hover img, .portfolio-item:active img { transform: scale(1.12); }
+
+        /* Glass sheen sweep on hover */
+        .portfolio-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.15) 45%, transparent 60%);
+            transform: translateX(-100%);
+            transition: transform 0.7s ease;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .portfolio-item:hover::before { transform: translateX(100%); }
+
+        .portfolio-item::after {
+            content: attr(data-title);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 22px 15px;
+            background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+            backdrop-filter: blur(4px);
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.05rem;
+            text-align: center;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 3;
+        }
+
+        .portfolio-item:hover::after, .portfolio-item:active::after { transform: translateY(0); }
+
+        /* Pricing Cards */
+        .pricing-container {
+            display: flex;
+            justify-content: center;
+            gap: 35px;
+            padding: 0 8% 40px;
+            flex-wrap: wrap;
+        }
+
+        .price-card {
+            border-radius: 26px;
+            padding: 40px 30px;
+            width: 320px;
+            max-width: 100%;
+            text-align: center;
+            border-top: 2px solid var(--glass-border-soft);
+            transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s ease, background 0.35s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            overflow: hidden;
+        }
+
+        .price-card.in-view { animation: cardRise 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+        .price-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #b8970b, #ffd700, #ffe566, #ffd700, #b8970b);
+            background-size: 200% auto;
+            animation: shimmer 4s linear infinite;
+        }
+
+        .price-card:hover, .price-card:active {
+            transform: translateY(-10px);
+            background: var(--glass-bg-strong);
+            box-shadow: 0 32px 65px rgba(255, 215, 0, 0.25), inset 0 1px 0 rgba(255,255,255,0.15);
+        }
+
+        .price-card h3 { font-size: 1.7rem; margin-bottom: 10px; color: var(--text-color); }
+        .price-card .price {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #ffe566, #ffd700);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+        .price-card p { color: #9a9aa2; margin-bottom: 20px; font-size: 0.95rem; }
+
+        /* Testimonials Section */
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 0 8% 40px;
+        }
+
+        .testimonial-card {
+            border-radius: 22px;
             padding: 30px;
-            max-width: 580px;
-            margin: 0 auto;
-            backdrop-filter: blur(10px);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+            opacity: 0;
+            transform: translateY(30px);
         }
 
-        .form-group { margin-bottom: 16px; text-align: left; }
-        .form-group label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 0.85rem; color: #cbd5e1; }
+        .testimonial-card.in-view { animation: cardRise 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+        .testimonial-card:hover, .testimonial-card:active {
+            transform: translateY(-6px);
+            box-shadow: 0 24px 48px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.12);
+        }
+
+        .testimonial-card .stars { color: #f59e0b; margin-bottom: 12px; font-size: 0.9rem; }
+        .testimonial-card p { font-style: italic; color: #cfcfd6; font-size: 0.95rem; margin-bottom: 15px; }
+        .testimonial-card h5 { font-weight: 700; color: #fff; }
+
+        /* Instagram Banner Section */
+        .insta-banner {
+            padding: 20px 8% 40px;
+            text-align: center;
+        }
+
+        .insta-box {
+            background: linear-gradient(135deg, rgba(60, 30, 40, 0.5), rgba(50, 25, 55, 0.5));
+            border-radius: 26px;
+            padding: 35px 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: box-shadow 0.4s ease;
+        }
+
+        .insta-box.in-view { animation: cardRise 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+        .insta-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .insta-btn {
+            background: linear-gradient(135deg, rgba(240,148,51,0.92), rgba(230,104,60,0.92), rgba(220,39,67,0.92), rgba(204,35,102,0.92), rgba(188,24,136,0.92));
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #fff;
+            padding: 14px 32px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 26px rgba(220, 39, 67, 0.35), inset 0 1px 0 rgba(255,255,255,0.35);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .insta-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 18px 36px rgba(220, 39, 67, 0.5), inset 0 1px 0 rgba(255,255,255,0.4);
+        }
+        .insta-btn:active { transform: scale(0.97); }
+
+        /* FAQ Accordion Section */
+        .faq-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 8% 40px;
+        }
+
+        .faq-item {
+            border-radius: 16px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: background 0.35s ease, border-color 0.35s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .faq-item.in-view { animation: cardRise 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+        .faq-item.active {
+            background: var(--glass-bg-strong);
+            border-color: rgba(255, 215, 0, 0.25);
+        }
+
+        .faq-question {
+            padding: 18px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-color);
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .faq-question:active { opacity: 0.75; }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            padding: 0 20px;
+            color: #aeaeb6;
+            font-size: 0.95rem;
+            transition: max-height 0.4s cubic-bezier(0.16,1,0.3,1), padding 0.4s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 180px;
+            padding-bottom: 18px;
+        }
+
+        .faq-item.active .faq-question i { transform: rotate(180deg); color: var(--primary-yellow); }
+        .faq-question i { transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease; }
+
+        /* Order Form Box */
+        .order-section {
+            padding: 20px 8% 50px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .order-box {
+            border-radius: 30px;
+            padding: 40px;
+            width: 100%;
+            max-width: 580px;
+            border-top: 1px solid rgba(255,255,255,0.28);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .order-box.in-view { animation: cardRise 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+        .order-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 6%; right: 6%;
+            height: 3px;
+            border-radius: 3px;
+            background: linear-gradient(90deg, transparent, #ffd700, transparent);
+        }
+
+        .order-box h3 { text-align: center; font-size: 2rem; margin-bottom: 25px; color: var(--text-color); }
+
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 6px; color: #dedee3; font-size: 0.95rem; }
         .form-group input, .form-group select, .form-group textarea {
             width: 100%;
-            padding: 11px 14px;
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            color: #fff;
+            padding: 13px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 14px;
             font-size: 0.95rem;
             outline: none;
-            transition: 0.3s;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            color: var(--text-color);
+            transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
         }
 
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 10px var(--accent-glow);
+            border-color: var(--primary-yellow);
+            background: rgba(255, 215, 0, 0.06);
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.15), inset 0 1px 0 rgba(255,255,255,0.1);
         }
 
-        .btn-submit {
-            width: 100%;
-            padding: 14px;
-            background: var(--accent-blue);
-            color: #090d16;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 800;
-            cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-        }
+        .form-group select option { background: #16161a; color: #f2f2f5; }
 
-        .btn-submit:hover { opacity: 0.9; transform: translateY(-2px); }
+        .order-box .btn { width: 100%; margin-top: 10px; justify-content: center; }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 30px;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        /* Floating WhatsApp Button */
-        .float-wa {
+        /* Floating Order Button (Right Side) - glass pill */
+        .floating-order-btn {
             position: fixed;
             bottom: 25px;
             right: 25px;
-            background: #25d366;
+            background: linear-gradient(135deg, rgba(37,211,102,0.9), rgba(18,140,126,0.9));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
             color: #fff;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.6rem;
-            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+            padding: 14px 22px;
+            border-radius: 50px;
+            font-weight: 700;
             text-decoration: none;
-            z-index: 1000;
-            transition: 0.3s;
+            box-shadow: 0 10px 28px rgba(37, 211, 102, 0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: whatsappPulse 2.4s infinite ease-in-out;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
         }
-        .float-wa:hover { transform: scale(1.1); }
 
+        @keyframes whatsappPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 10px 28px rgba(37, 211, 102, 0.4), inset 0 1px 0 rgba(255,255,255,0.3); }
+            50% { transform: scale(1.05); box-shadow: 0 16px 34px rgba(37, 211, 102, 0.65), inset 0 1px 0 rgba(255,255,255,0.4); }
+        }
+
+        .floating-order-btn:hover { animation-play-state: paused; transform: scale(1.1) translateY(-4px); }
+        .floating-order-btn:active { transform: scale(0.95); }
+
+        /* Floating Instagram Button (Left Side) - glass pill */
+        .floating-insta-btn {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            background: linear-gradient(135deg, rgba(240,148,51,0.9), rgba(230,104,60,0.9), rgba(220,39,67,0.9), rgba(204,35,102,0.9), rgba(188,24,136,0.9));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #fff;
+            padding: 14px 22px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 10px 28px rgba(220, 39, 67, 0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: instaPulse 2.4s infinite ease-in-out;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+        }
+
+        @keyframes instaPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 10px 28px rgba(220, 39, 67, 0.4), inset 0 1px 0 rgba(255,255,255,0.3); }
+            50% { transform: scale(1.05); box-shadow: 0 16px 34px rgba(220, 39, 67, 0.65), inset 0 1px 0 rgba(255,255,255,0.4); }
+        }
+
+        .floating-insta-btn:hover { animation-play-state: paused; transform: scale(1.1) translateY(-4px); }
+        .floating-insta-btn:active { transform: scale(0.95); }
+
+        /* Footer */
+        footer {
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            color: #fff;
+            text-align: center;
+            padding: 35px 20px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,215,0,0.35);
+        }
+
+        footer h3 { font-size: 1.6rem; margin-bottom: 6px; }
+        footer p { color: #aaa; font-size: 0.9rem; }
+
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
-            .nav-links { display: none; }
-            .form-box { padding: 20px; }
-            .art-card img { height: 240px; }
+            header { flex-direction: column; gap: 10px; padding: 12px 5%; }
+            nav { gap: 12px; flex-wrap: wrap; justify-content: center; }
+            .hero h2 { font-size: 2.1rem; }
+            .hero p { font-size: 1rem; }
+            .section-title { font-size: 1.9rem; margin: 45px 0 25px; }
+            .pricing-container, .steps-container, .testimonials-container, .insta-banner { padding: 0 5% 30px; gap: 20px; }
+            .order-section { padding: 10px 5% 40px; }
+            .order-box { padding: 25px 18px; }
+            .portfolio-grid { padding: 0 5% 30px; grid-template-columns: 1fr; }
+            .floating-order-btn { bottom: 15px; right: 15px; padding: 11px 16px; font-size: 0.9rem; }
+            .floating-insta-btn { bottom: 15px; left: 15px; padding: 11px 16px; font-size: 0.9rem; }
+
+            /* Lighten blur cost on mobile for smoothness */
+            :root { --glass-blur: blur(14px) saturate(140%); }
+            .portfolio-item { animation: none; }
+            .portfolio-item.in-view { animation: cardRise 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        }
+
+        /* Respect reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navbar -->
-    <nav>
-        <a href="#" class="logo">DEV<span>ARTSX</span></a>
-        <ul class="nav-links">
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#pricing">Pricing</a></li>
-            <li><a href="#order">Order Commission</a></li>
-        </ul>
-    </nav>
+    <!-- Top Announcement Bar -->
+    <div class="announcement-bar">
+        🎉 Special Offer: Free Secure Packaging & Fast Delivery on all Orders! 🎨
+    </div>
+
+    <!-- Glowing Background Orbs -->
+    <div class="ambient-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" onerror="this.src='https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=100'" alt="Devartsx Logo">
+            <h1>Devarts<span class="shimmer-text">x</span></h1>
+        </div>
+        <nav>
+            <a href="#hero">Home</a>
+            <a href="#steps">How It Works</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#pricing">Pricing</a>
+            <a href="https://instagram.com/devartsx" target="_blank" class="nav-insta-link">
+                <i class="fa-brands fa-instagram"></i> devartsx
+            </a>
+            <a href="#order">Order</a>
+        </nav>
+    </header>
 
     <!-- Hero Section -->
-    <section class="hero">
-        <span class="badge"><i class="fa-solid fa-paintbrush"></i> Charcoal & Graphite Specialist</span>
-        <h1>Bring Your Favorite Photos To Life With <span>Handmade Art</span></h1>
-        <p>Get custom, highly-detailed pencil portraits drawn with premium graphite & charcoal. Perfect for personal keepsakes and memorable gifts.</p>
-        <a href="#order" class="btn-primary"><i class="fa-solid fa-paper-plane"></i> Order Your Sketch Now</a>
+    <section class="hero" id="hero">
+        <h2>Handmade Realistic <span>Sketches</span></h2>
+        <p>Get custom graphite & charcoal portraits created with high precision. The ultimate timeless gift for your loved ones.</p>
+        <div class="hero-buttons">
+            <a href="#order" class="btn"><i class="fa-solid fa-paintbrush"></i> Order Your Sketch</a>
+            <a href="https://instagram.com/devartsx" target="_blank" class="btn btn-insta"><i class="fa-brands fa-instagram"></i> Follow me on Instagram</a>
+        </div>
     </section>
 
-    <!-- Gallery Section -->
-    <section class="section" id="gallery">
-        <div class="section-header">
-            <h2>Featured Artworks</h2>
-            <p>100% Hand-drawn with Graphite & Charcoal Pencils</p>
+    <!-- How It Works Section -->
+    <h2 class="section-title" id="steps">How to <span class="shimmer-text">Order</span></h2>
+    <div class="steps-container">
+        <div class="step-card">
+            <div class="step-icon">1</div>
+            <h4>Choose Photo</h4>
+            <p>Select a clear reference photo you want to convert into a sketch.</p>
         </div>
-        <div class="gallery-grid">
-            <div class="art-card">
-                <img src="SAVE_20260811_152926.jpg" alt="Divine Shiva Parvati Charcoal Sketch">
-                <div class="art-info">
-                    <h4>Shiv Parvati Sketch</h4>
-                    <p>Charcoal & Graphite Medium</p>
-                </div>
-            </div>
-            <div class="art-card">
-                <img src="file_000000002b608211b7d1d757faceb747.png" alt="Anime Sketch">
-                <div class="art-info">
-                    <h4>Anime Art (Giyu Tomioka)</h4>
-                    <p>Graphite Pencil Artwork</p>
-                </div>
-            </div>
-            <div class="art-card">
-                <img src="file_0000000048188211a9cea16ab0d9c324.jpg" alt="Lord Ganesha Artwork">
-                <div class="art-info">
-                    <h4>Lord Ganesha Portrait</h4>
-                    <p>Detailed Charcoal Art</p>
-                </div>
-            </div>
-            <div class="art-card">
-                <img src="eye-detail.jpg" alt="Hyperrealistic Eye Sketch">
-                <div class="art-info">
-                    <h4>Hyper-Realistic Eye Study</h4>
-                    <p>Graphite Pencil Detail</p>
-                </div>
-            </div>
+        <div class="step-card">
+            <div class="step-icon">2</div>
+            <h4>Fill Details</h4>
+            <p>Submit your name, size, and custom instructions on our form below.</p>
         </div>
-    </section>
+        <div class="step-card">
+            <div class="step-icon">3</div>
+            <h4>WhatsApp & Relax</h4>
+            <p>Send details to WhatsApp, share your photo, and get doorstep delivery!</p>
+        </div>
+    </div>
+
+    <!-- Portfolio Grid -->
+    <h2 class="section-title" id="portfolio">My <span class="shimmer-text">Portfolio</span></h2>
+    <div class="portfolio-grid">
+        <div class="portfolio-item" data-title="Shiv Parvati Sketch">
+            <img src="SAVE_20260811_152926.jpg" onerror="this.src='https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=600'" alt="Shiv Parvati Sketch">
+        </div>
+        <div class="portfolio-item" data-title="Anime Art">
+            <img src="file_000000002b608211b7d1d757faceb747.png" onerror="this.src='https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=600'" alt="Anime Art Giyu">
+        </div>
+        <div class="portfolio-item" data-title="Lord Ganesha Portrait">
+            <img src="file_000000006c408207b271675b9f635fda.png" onerror="this.src='https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=600'" alt="Lord Ganesha Artwork">
+        </div>
+        <div class="portfolio-item" data-title="Hyper-Realistic Eye">
+            <img src="eye-detail.jpg" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'" alt="Eye Sketch Artwork">
+        </div>
+    </div>
 
     <!-- Pricing Section -->
-    <section class="section" id="pricing">
-        <div class="section-header">
-            <h2>Commission Pricing</h2>
-            <p>Choose the size that best fits your room or gift requirements</p>
+    <h2 class="section-title" id="pricing">Sketch <span class="shimmer-text">Pricing</span></h2>
+    <div class="pricing-container">
+        <div class="price-card">
+            <h3>A4 Size Sketch</h3>
+            <div class="price">₹599</div>
+            <p>Perfect choice for single face portraits & closeups with fine graphite shading.</p>
+            <a href="#order" class="btn">Book A4 Size</a>
         </div>
-        <div class="pricing-grid">
-            <div class="price-card">
-                <h3>A4 Portrait</h3>
-                <p style="color:var(--text-muted); font-size: 0.85rem;">Ideal for single faces & closeups</p>
-                <div class="price">₹599</div>
-                <ul>
-                    <li><i class="fa-solid fa-check"></i> Size: 8.3 x 11.7 Inches</li>
-                    <li><i class="fa-solid fa-check"></i> Premium Heavyweight Paper</li>
-                    <li><i class="fa-solid fa-check"></i> Graphite & Charcoal Blend</li>
-                    <li><i class="fa-solid fa-check"></i> Fixed Spray Protection Layer</li>
-                </ul>
-                <a href="#order" class="btn-primary" style="width:100%; justify-content:center;">Book A4 Size</a>
-            </div>
+        <div class="price-card">
+            <h3>A3 Size Sketch</h3>
+            <div class="price">₹999</div>
+            <p>Best for detailed couple portraits, religious art & deep charcoal artwork.</p>
+            <a href="#order" class="btn">Book A3 Size</a>
+        </div>
+    </div>
 
-            <div class="price-card popular">
-                <h3>A3 Portrait</h3>
-                <p style="color:var(--text-muted); font-size: 0.85rem;">Best for full detail & couple portraits</p>
-                <div class="price">₹999</div>
-                <ul>
-                    <li><i class="fa-solid fa-check"></i> Size: 11.7 x 16.5 Inches</li>
-                    <li><i class="fa-solid fa-check"></i> High-Detail Charcoal Depth</li>
-                    <li><i class="fa-solid fa-check"></i> Premium Archival Quality Paper</li>
-                    <li><i class="fa-solid fa-check"></i> Fixed Spray Protection Layer</li>
-                </ul>
-                <a href="#order" class="btn-primary" style="width:100%; justify-content:center;">Book A3 Size</a>
+    <!-- Testimonials Section -->
+    <h2 class="section-title">Client <span class="shimmer-text">Reviews</span></h2>
+    <div class="testimonials-container">
+        <div class="testimonial-card">
+            <div class="stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p>"Ordered an A3 couple portrait for my anniversary. The detailing is just mind-blowing! Everyone loved it."</p>
+            <h5>- Aman Sharma</h5>
+        </div>
+        <div class="testimonial-card">
+            <div class="stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p>"Superb work! The delivery was secure and the sketch looked even better than the real photo."</p>
+            <h5>- Priya Verma</h5>
+        </div>
+    </div>
+
+    <!-- Instagram Follow Banner Section -->
+    <div class="insta-banner">
+        <div class="insta-box">
+            <h3>Connect with us on Instagram</h3>
+            <p style="color: #bbb; font-size: 0.95rem; margin-bottom: 5px;">See latest sketch reels, behind-the-scenes & daily artwork updates.</p>
+            <a href="https://instagram.com/devartsx" target="_blank" class="insta-btn">
+                <i class="fa-brands fa-instagram" style="font-size: 1.3rem;"></i> Follow me on Instagram
+            </a>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <h2 class="section-title">Frequently Asked <span class="shimmer-text">Questions</span></h2>
+    <div class="faq-container">
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Kitne dino mein sketch tayar ho jata hai?</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                Ek sketch ko banane aur dry hone mein lagbhag 3 se 5 working days lagte hain, uske baad dispatch hota hai.
             </div>
         </div>
-    </section>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Kya photo WhatsApp par bhejni hogi?</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                Haan! Form submit karne ke baad jab aap WhatsApp par redirect honge, tab wahan apni clear reference photo bhej sakte hain.
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Frame sath mein milta hai kya?</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                Sketches ko safely roll karke hard safety tube mein bheja jata hai taaki damage na ho. Frame aap apne local market se easily karwa sakte hain.
+            </div>
+        </div>
+    </div>
 
     <!-- Order Form Section -->
-    <section class="section" id="order">
-        <div class="section-header">
-            <h2>Place Commission Request</h2>
-            <p>Fill out the details below to initiate your portrait request</p>
-        </div>
-        <div class="form-box">
+    <section class="order-section" id="order">
+        <div class="order-box">
+            <h3>Order <span class="shimmer-text">Your Sketch</span></h3>
             <form onsubmit="sendToWhatsApp(event)">
                 <div class="form-group">
                     <label for="name">Your Name</label>
                     <input type="text" id="name" required placeholder="Enter your full name">
                 </div>
                 <div class="form-group">
-                    <label for="phone">WhatsApp Number</label>
-                    <input type="tel" id="phone" required placeholder="Enter active mobile number">
+                    <label for="phone">WhatsApp Phone Number</label>
+                    <input type="tel" id="phone" required placeholder="Enter mobile number">
                 </div>
                 <div class="form-group">
-                    <label for="size">Artwork Size</label>
+                    <label for="size">Select Artwork Size</label>
                     <select id="size" required>
-                        <option value="A4 Size Portrait (₹599)">A4 Size Portrait - ₹599</option>
-                        <option value="A3 Size Portrait (₹999)">A3 Size Portrait - ₹999</option>
+                        <option value="A4 Size Sketch (₹599)">A4 Size Sketch - ₹599</option>
+                        <option value="A3 Size Sketch (₹999)">A3 Size Sketch - ₹999</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="instructions">Custom Notes / Special Instructions</label>
-                    <textarea id="instructions" rows="3" placeholder="Mention extra details (e.g., date required)..."></textarea>
+                    <label for="address">Delivery Address (Full Address with Pincode)</label>
+                    <textarea id="address" rows="3" required placeholder="House No, Street, City, State, Pincode"></textarea>
                 </div>
-                <button type="submit" class="btn-submit">
-                    <i class="fa-brands fa-whatsapp" style="font-size:1.2rem;"></i> Continue Order on WhatsApp
-                </button>
+                <div class="form-group">
+                    <label for="notes">Special Instructions & Customisations</label>
+                    <textarea id="notes" rows="3" placeholder="Any specific requirements, name writing, background changes..."></textarea>
+                </div>
+                <button type="submit" id="submitBtn" class="btn"><i class="fa-brands fa-whatsapp" style="font-size:1.3rem;"></i> Order via WhatsApp</button>
             </form>
         </div>
     </section>
 
-    <!-- Floating WhatsApp Icon -->
-    <a href="https://wa.me/917827417956" target="_blank" class="float-wa" title="Chat on WhatsApp">
-        <i class="fa-brands fa-whatsapp"></i>
+    <!-- Floating Instagram Button (Left Side) -->
+    <a href="https://instagram.com/devartsx" target="_blank" class="floating-insta-btn">
+        <i class="fa-brands fa-instagram" style="font-size: 1.4rem;"></i> Instagram
+    </a>
+
+    <!-- Floating Order Button (Right Side) -->
+    <a href="#order" class="floating-order-btn">
+        <i class="fa-brands fa-whatsapp" style="font-size: 1.4rem;"></i> Order Now
     </a>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2026 Devartsx. All Rights Reserved. Crafted for Art Lovers.</p>
+        <h3>Devarts<span class="shimmer-text">x</span></h3>
+        <p>&copy; 2026 Devartsx. All Rights Reserved.</p>
     </footer>
 
-    <!-- JavaScript Functionality for Direct WhatsApp Open -->
+    <!-- Interactive Script -->
     <script>
-    function sendToWhatsApp(event) {
-        event.preventDefault();
-        const name = document.getElementById('name').value;
-        const phone = document.getElementById('phone').value;
-        const size = document.getElementById('size').value;
-        const instructions = document.getElementById('instructions').value || 'None';
-        
-        const whatsappNumber = "917827417956"; 
-        
-        const rawMessage = `*NEW COMMISSION ORDER - DEVARTSX*\n\n` +
-                           `*Customer Name:* ${name}\n` +
-                           `*Contact Number:* ${phone}\n` +
-                           `*Selected Size:* ${size}\n` +
-                           `*Instructions:* ${instructions}\n\n` +
-                           `*(Note: Please attach your reference photo in this WhatsApp chat now)*`;
+        // FAQ Accordion Toggle
+        function toggleFaq(element) {
+            const parent = element.parentElement;
+            parent.classList.toggle('active');
+        }
 
-        const encodedMessage = encodeURIComponent(rawMessage);
-        
-        // Directly opens WhatsApp in a new tab/app seamlessly
-        window.open(`https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`, '_blank');
-    }
+        // Send Order Direct to WhatsApp
+        function sendToWhatsApp(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const size = document.getElementById('size').value;
+            const address = document.getElementById('address').value;
+            const notes = document.getElementById('notes').value || 'None';
+            
+            const whatsappNumber = "917827417956";
+            const message = `*NEW SKETCH ORDER - DEVARTSX*\n\n` +
+                            `*Name:* ${name}\n` +
+                            `*Phone:* ${phone}\n` +
+                            `*Selected Size:* ${size}\n` +
+                            `*Delivery Address:* ${address}\n` +
+                            `*Customisation Instructions:* ${notes}\n\n` +
+                            `*(Note: Reference photo will be shared here)*`;
+
+            window.location.href = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`;
+        }
+
+        // Scroll-reveal for liquid glass cards (mobile-friendly, GPU-light)
+        document.addEventListener('DOMContentLoaded', () => {
+            const revealTargets = document.querySelectorAll(
+                '.section-title, .step-card, .portfolio-item, .price-card, .testimonial-card, .faq-item, .order-box, .insta-box'
+            );
+
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('in-view');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+                revealTargets.forEach(el => observer.observe(el));
+            } else {
+                // Fallback: reveal everything immediately
+                revealTargets.forEach(el => el.classList.add('in-view'));
+            }
+        });
     </script>
 </body>
 </html>
