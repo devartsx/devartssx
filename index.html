@@ -3,274 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Devartsx | Realistic Pencil & Charcoal Sketches</title>
-
-    <meta name="description"
-          content="Devartsx creates handmade realistic graphite pencil and charcoal sketches. Order custom portraits in A4 and A3 sizes.">
-
-    <meta name="theme-color" content="#080808">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <title>Devartsx - Custom Handmade Sketches</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-
-        /* ================================
-           DEVARTSX
-           BLACK • RED • YELLOW • WHITE
-        ================================= */
-
         :root {
-            --black: #050505;
-            --black2: #0c0c0c;
-            --card: rgba(255,255,255,0.055);
-
-            --red: #ff2020;
-            --red-dark: #b40000;
-            --yellow: #ffd21c;
-
-            --white: #ffffff;
-            --gray: #a8a8a8;
-
-            --border: rgba(255,255,255,0.12);
-
-            --shadow:
-                0 20px 60px rgba(0,0,0,.55);
-
-            --ease: cubic-bezier(.2,.8,.2,1);
+            --bg-color: #0a0a0a;
+            --text-color: #f0f0f0;
+            --primary-yellow: #ffd700;
+            --gold-glow: rgba(255, 215, 0, 0.4);
+            --card-bg: rgba(30, 30, 30, 0.65);
+            --shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        html {
+            font-family: 'Poppins', sans-serif;
             scroll-behavior: smooth;
         }
 
         body {
-            background:
-                radial-gradient(circle at 10% 10%, rgba(255,0,0,.12), transparent 30%),
-                radial-gradient(circle at 90% 30%, rgba(255,210,28,.08), transparent 25%),
-                #050505;
-
-            color: var(--white);
-            font-family: Arial, Helvetica, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             overflow-x: hidden;
+            position: relative;
+            animation: fadeInBody 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        a {
-            color: inherit;
-            text-decoration: none;
+        @keyframes fadeInBody {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        img {
-            max-width: 100%;
-            display: block;
-        }
-
-        /* ================================
-           BACKGROUND
-        ================================= */
-
-        .background {
+        /* Ambient Glowing Background */
+        .ambient-bg {
             position: fixed;
-            inset: 0;
-            z-index: -5;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
             overflow: hidden;
             pointer-events: none;
         }
 
-        .glow {
+        .orb {
             position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: orbFloat 12s infinite alternate ease-in-out;
+        }
+
+        .orb-1 {
             width: 350px;
             height: 350px;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: .12;
+            background: #ffe566;
+            top: -40px;
+            left: -40px;
         }
 
-        .glow.red {
-            background: red;
-            top: 10%;
-            left: -120px;
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: #fff099;
+            bottom: -60px;
+            right: -40px;
+            animation-delay: -6s;
         }
 
-        .glow.yellow {
-            background: #ffd21c;
-            right: -120px;
-            top: 45%;
+        @keyframes orbFloat {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            100% { transform: translate(50px, 60px) scale(1.15) rotate(15deg); }
         }
 
-        /* ================================
-           ANNOUNCEMENT
-        ================================= */
-
-        .announcement {
-            background: linear-gradient(
-                90deg,
-                #850000,
-                #ff2020,
-                #850000
-            );
-
+        /* Top Announcement Bar */
+        .announcement-bar {
+            background: linear-gradient(90deg, #b8970b, #ffd700, #b8970b);
+            background-size: 200% auto;
+            color: #111;
             text-align: center;
-            padding: 10px 15px;
-
-            font-size: 13px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
             font-weight: 700;
-
-            letter-spacing: .4px;
+            animation: shimmer 3s linear infinite;
+            position: relative;
+            z-index: 1001;
         }
 
-        /* ================================
-           HEADER
-        ================================= */
-
+        /* Header */
         header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 8%;
+            background: rgba(20, 20, 20, 0.75);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
             position: sticky;
             top: 0;
             z-index: 1000;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+        }
 
-            background: rgba(5,5,5,.88);
-            backdrop-filter: blur(18px);
-
-            border-bottom: 1px solid rgba(255,255,255,.08);
-
-            padding: 13px 6%;
-
+        .logo-container {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-
-            gap: 20px;
+            gap: 12px;
         }
 
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 11px;
+        .logo-container img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid var(--primary-yellow);
+            box-shadow: 0 0 15px var(--gold-glow);
+            transition: transform 0.5s ease;
         }
 
-        .brand img {
-            width: 48px;
-            height: 48px;
-            object-fit: contain;
+        .logo-container img:hover {
+            transform: scale(1.1) rotate(10deg);
         }
 
-        .brand-name {
-            font-size: 25px;
-            font-weight: 900;
-            letter-spacing: -1px;
+        .logo-container h1 {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-color);
         }
 
-        .brand-name span {
-            color: var(--yellow);
+        .shimmer-text {
+            background: linear-gradient(90deg, #b8970b 0%, #ffd700 50%, #b8970b 100%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            to { background-position: 200% center; }
         }
 
         nav {
             display: flex;
+            gap: 20px;
             align-items: center;
-            gap: 24px;
         }
 
         nav a {
-            font-size: 14px;
-            font-weight: 700;
-            color: #ddd;
-
-            transition: .3s;
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            font-size: 0.95rem;
+            position: relative;
+            transition: 0.3s;
         }
 
-        nav a:hover {
-            color: var(--yellow);
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--primary-yellow);
+            border-radius: 2px;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .nav-order {
-            background: var(--red);
-            padding: 10px 17px;
-            border-radius: 30px;
-            color: white !important;
+        nav a:hover::after { width: 100%; }
+        nav a:hover { color: #ffd700; }
+
+        /* Nav Instagram Highlight Link */
+        .nav-insta-link {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            color: #fff !important;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 15px rgba(220, 39, 67, 0.3);
+            transition: transform 0.3s ease !important;
         }
 
-        .nav-order:hover {
-            background: var(--yellow);
-            color: black !important;
-        }
+        .nav-insta-link::after { display: none !important; }
+        .nav-insta-link:hover { transform: translateY(-2px); }
 
-        /* ================================
-           HERO
-        ================================= */
-
+        /* Hero Section */
         .hero {
-            min-height: 90vh;
-
+            min-height: 70vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-
             text-align: center;
-
-            padding: 90px 6% 80px;
-
-            position: relative;
+            padding: 40px 20px;
+            animation: fadeZoomIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+            opacity: 0;
         }
 
-        .hero-logo {
-            width: 125px;
-            height: 125px;
-            object-fit: contain;
+        @keyframes fadeZoomIn {
+            from { opacity: 0; transform: scale(0.95) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
 
+        .hero h2 {
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            font-weight: 800;
+            color: var(--text-color);
+        }
+
+        .hero h2 span {
+            display: inline-block;
+            background: var(--primary-yellow);
+            color: #111;
+            padding: 4px 16px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px var(--gold-glow);
+            animation: badgePulse 3s infinite ease-in-out;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 8px 20px var(--gold-glow); }
+            50% { transform: scale(1.05); box-shadow: 0 15px 35px rgba(255, 215, 0, 0.7); }
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: #bbb;
+            max-width: 600px;
             margin-bottom: 25px;
-
-            filter:
-                drop-shadow(0 0 15px rgba(255,0,0,.25))
-                drop-shadow(0 0 25px rgba(255,210,28,.15));
-
-            animation: floatLogo 4s ease-in-out infinite;
-        }
-
-        @keyframes floatLogo {
-            0%,100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        .hero h1 {
-            max-width: 900px;
-
-            font-size: clamp(42px, 7vw, 85px);
-
-            line-height: .95;
-
-            font-weight: 950;
-
-            letter-spacing: -4px;
-        }
-
-        .hero h1 span {
-            color: var(--yellow);
-            text-shadow: 0 0 30px rgba(255,210,28,.18);
-        }
-
-        .hero-description {
-            max-width: 650px;
-
-            margin-top: 25px;
-
-            color: #bdbdbd;
-
-            font-size: 18px;
-            line-height: 1.7;
         }
 
         .hero-buttons {
@@ -278,1928 +249,676 @@
             gap: 15px;
             flex-wrap: wrap;
             justify-content: center;
-
-            margin-top: 35px;
         }
 
         .btn {
+            background: linear-gradient(135deg, #ffd700, #ffcc00);
+            color: #111;
+            padding: 15px 32px;
+            font-size: 1.05rem;
+            font-weight: 700;
             border: none;
-
-            padding: 15px 25px;
-
-            border-radius: 40px;
-
-            font-weight: 800;
-            font-size: 15px;
-
+            border-radius: 50px;
             cursor: pointer;
-
+            box-shadow: 0 10px 25px var(--gold-glow);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-decoration: none;
             display: inline-flex;
             align-items: center;
-            justify-content: center;
             gap: 10px;
-
-            transition:
-                transform .3s var(--ease),
-                box-shadow .3s,
-                background .3s;
-        }
-
-        .btn-red {
-            background: var(--red);
-
-            box-shadow:
-                0 10px 30px rgba(255,0,0,.25);
-        }
-
-        .btn-red:hover {
-            transform: translateY(-4px);
-            background: #ff3838;
-
-            box-shadow:
-                0 18px 40px rgba(255,0,0,.35);
-        }
-
-        .btn-yellow {
-            background: var(--yellow);
-            color: #080808;
-        }
-
-        .btn-yellow:hover {
-            transform: translateY(-4px);
-
-            box-shadow:
-                0 15px 35px rgba(255,210,28,.25);
-        }
-
-        /* ================================
-           SECTION
-        ================================= */
-
-        .section {
-            padding: 80px 6%;
-        }
-
-        .section-heading {
-            text-align: center;
-            margin-bottom: 45px;
-        }
-
-        .section-heading .small {
-            color: var(--red);
-            font-size: 13px;
-            font-weight: 900;
-
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        .section-heading h2 {
-            margin-top: 8px;
-
-            font-size: clamp(30px,5vw,48px);
-            font-weight: 900;
-        }
-
-        .section-heading h2 span {
-            color: var(--yellow);
-        }
-
-        .section-heading p {
-            color: var(--gray);
-            max-width: 600px;
-            margin: 12px auto 0;
-            line-height: 1.6;
-        }
-
-        /* ================================
-           HOW IT WORKS
-        ================================= */
-
-        .steps {
-            max-width: 1000px;
-            margin: auto;
-
-            display: grid;
-            grid-template-columns: repeat(3,1fr);
-            gap: 20px;
-        }
-
-        .step {
-            background: var(--card);
-
-            border: 1px solid var(--border);
-
-            border-radius: 22px;
-
-            padding: 30px;
-
-            text-align: center;
-
-            transition: .35s;
-        }
-
-        .step:hover {
-            transform: translateY(-8px);
-            border-color: rgba(255,210,28,.4);
-        }
-
-        .step-number {
-            width: 55px;
-            height: 55px;
-
-            margin: 0 auto 20px;
-
-            display: grid;
-            place-items: center;
-
-            border-radius: 50%;
-
-            background: var(--red);
-
-            font-size: 20px;
-            font-weight: 900;
-
-            box-shadow:
-                0 10px 25px rgba(255,0,0,.25);
-        }
-
-        .step h3 {
-            margin-bottom: 10px;
-        }
-
-        .step p {
-            color: #aaa;
-            line-height: 1.6;
-            font-size: 14px;
-        }
-
-        /* ================================
-           PORTFOLIO
-        ================================= */
-
-        .portfolio {
-            max-width: 1150px;
-            margin: auto;
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(4, 1fr);
-
-            gap: 18px;
-        }
-
-        .art {
             position: relative;
-
-            border-radius: 20px;
             overflow: hidden;
-
-            background: #111;
-
-            border: 1px solid rgba(255,255,255,.1);
-
-            cursor: pointer;
-
-            aspect-ratio: 3/4;
-
-            transition: .4s var(--ease);
         }
 
-        .art img {
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
             width: 100%;
             height: 100%;
-
-            object-fit: cover;
-
-            transition: transform .5s var(--ease);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: 0.5s;
         }
 
-        .art:hover {
-            transform: translateY(-8px);
-
-            border-color: var(--yellow);
-
-            box-shadow:
-                0 20px 45px rgba(0,0,0,.6);
+        .btn:hover::after { left: 100%; }
+        .btn:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.7);
         }
 
-        .art:hover img {
-            transform: scale(1.06);
+        /* Hero Instagram Button */
+        .btn-insta {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            color: #fff;
+            box-shadow: 0 10px 25px rgba(220, 39, 67, 0.35);
+        }
+        .btn-insta:hover {
+            box-shadow: 0 20px 40px rgba(220, 39, 67, 0.6);
         }
 
-        .art-info {
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-
-            padding: 35px 15px 15px;
-
-            background:
-                linear-gradient(
-                    transparent,
-                    rgba(0,0,0,.9)
-                );
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            font-size: 2.4rem;
+            margin: 60px 0 30px;
+            font-weight: 800;
+            color: var(--text-color);
         }
 
-        .art-info h3 {
-            font-size: 15px;
-        }
-
-        /* ================================
-           PRICING
-        ================================= */
-
-        .pricing {
-            max-width: 900px;
-            margin: auto;
-
+        /* How to Order Steps */
+        .steps-container {
             display: grid;
-            grid-template-columns: repeat(2,1fr);
-
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 25px;
+            padding: 0 8% 40px;
+        }
+
+        .step-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 20px;
+            padding: 30px 25px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .step-card:hover { transform: translateY(-6px); }
+
+        .step-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-yellow);
+            color: #111;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 1.4rem;
+            font-weight: 800;
+            box-shadow: 0 5px 15px var(--gold-glow);
+        }
+
+        .step-card h4 { font-size: 1.2rem; margin-bottom: 8px; color: var(--text-color); }
+        .step-card p { font-size: 0.9rem; color: #999; }
+
+        /* Portfolio Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 0 8% 40px;
+        }
+
+        .portfolio-item {
+            height: 350px;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: floatCard 6s ease-in-out infinite;
+        }
+
+        .portfolio-item:nth-child(even) { animation-delay: 3s; }
+
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .portfolio-item:hover {
+            animation-play-state: paused;
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(255, 215, 0, 0.35);
+            border-color: rgba(255, 215, 0, 0.6);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .portfolio-item:hover img { transform: scale(1.12); }
+
+        .portfolio-item::after {
+            content: attr(data-title);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 22px 15px;
+            background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.05rem;
+            text-align: center;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .portfolio-item:hover::after { transform: translateY(0); }
+
+        /* Pricing Cards */
+        .pricing-container {
+            display: flex;
+            justify-content: center;
+            gap: 35px;
+            padding: 0 8% 40px;
+            flex-wrap: wrap;
         }
 
         .price-card {
-            position: relative;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(255,255,255,.08),
-                    rgba(255,255,255,.025)
-                );
-
-            border: 1px solid var(--border);
-
-            border-radius: 25px;
-
-            padding: 35px;
-
-            overflow: hidden;
-
-            transition: .35s;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 24px;
+            padding: 40px 30px;
+            width: 320px;
+            max-width: 100%;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 8px solid var(--primary-yellow);
+            transition: all 0.4s ease;
         }
 
         .price-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(255,210,28,.45);
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(255, 215, 0, 0.3);
         }
 
-        .price-card.featured {
-            border-color: rgba(255,32,32,.55);
-        }
+        .price-card h3 { font-size: 1.7rem; margin-bottom: 10px; color: var(--text-color); }
+        .price-card .price { font-size: 2.8rem; color: #ffd700; margin-bottom: 15px; font-weight: 800; }
+        .price-card p { color: #999; margin-bottom: 20px; font-size: 0.95rem; }
 
-        .popular {
-            position: absolute;
-
-            top: 18px;
-            right: -35px;
-
-            background: var(--red);
-
-            padding: 7px 40px;
-
-            font-size: 11px;
-            font-weight: 900;
-
-            transform: rotate(35deg);
-        }
-
-        .price-card h3 {
-            font-size: 23px;
-        }
-
-        .price {
-            margin: 18px 0;
-
-            font-size: 48px;
-            font-weight: 950;
-
-            color: var(--yellow);
-        }
-
-        .price-card p {
-            color: #aaa;
-            line-height: 1.6;
-            margin-bottom: 25px;
-        }
-
-        /* ================================
-           FEATURES
-        ================================= */
-
-        .features {
-            max-width: 950px;
-            margin: auto;
-
+        /* Testimonials Section */
+        .testimonials-container {
             display: grid;
-            grid-template-columns: repeat(2,1fr);
-
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 0 8% 40px;
         }
 
-        .feature {
-            padding: 20px;
-
-            border-radius: 16px;
-
-            background: rgba(255,255,255,.04);
-
-            border: 1px solid var(--border);
-
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        .testimonial-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
         }
 
-        .feature i {
-            color: var(--yellow);
-            font-size: 20px;
-        }
+        .testimonial-card .stars { color: #f59e0b; margin-bottom: 12px; font-size: 0.9rem; }
+        .testimonial-card p { font-style: italic; color: #ccc; font-size: 0.95rem; margin-bottom: 15px; }
+        .testimonial-card h5 { font-weight: 700; color: #fff; }
 
-        .feature span {
-            color: #ddd;
-        }
-
-        /* ================================
-           INSTAGRAM
-        ================================= */
-
-        .instagram-box {
-            max-width: 900px;
-            margin: auto;
-
+        /* Instagram Banner Section */
+        .insta-banner {
+            padding: 20px 8% 40px;
             text-align: center;
+        }
 
-            padding: 55px 25px;
-
-            border-radius: 30px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    rgba(255,0,70,.15),
-                    rgba(255,210,28,.08)
-                );
-
-            border: 1px solid rgba(255,255,255,.12);
-
+        .insta-box {
+            background: linear-gradient(135deg, rgba(60, 30, 40, 0.7), rgba(50, 25, 55, 0.7));
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 24px;
+            padding: 35px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: var(--shadow);
         }
 
-        .instagram-icon {
-            font-size: 45px;
-            margin-bottom: 18px;
-        }
-
-        .instagram-box h2 {
-            font-size: 32px;
+        .insta-box h3 {
+            font-size: 1.8rem;
             margin-bottom: 10px;
+            color: var(--text-color);
         }
 
-        .instagram-box p {
-            color: #aaa;
-            margin-bottom: 25px;
+        .insta-btn {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            color: #fff;
+            padding: 14px 32px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(220, 39, 67, 0.35);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
         }
 
-        /* ================================
-           FAQ
-        ================================= */
+        .insta-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(220, 39, 67, 0.5);
+        }
 
-        .faq {
-            max-width: 750px;
-            margin: auto;
+        /* FAQ Accordion Section */
+        .faq-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 8% 40px;
         }
 
         .faq-item {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 14px;
             margin-bottom: 12px;
-
-            border: 1px solid var(--border);
-
-            border-radius: 16px;
-
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow);
             overflow: hidden;
-
-            background: rgba(255,255,255,.035);
+            transition: 0.3s;
         }
 
-        .question {
-            padding: 20px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
+        .faq-question {
+            padding: 18px 20px;
+            font-weight: 600;
             cursor: pointer;
-
-            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-color);
         }
 
-        .question i {
-            transition: .3s;
-            color: var(--yellow);
-        }
-
-        .answer {
+        .faq-answer {
             max-height: 0;
             overflow: hidden;
-
             padding: 0 20px;
-
             color: #aaa;
-
-            line-height: 1.6;
-
-            transition:
-                max-height .4s ease,
-                padding .4s ease;
+            font-size: 0.95rem;
+            transition: max-height 0.3s ease, padding 0.3s ease;
         }
 
-        .faq-item.active .answer {
+        .faq-item.active .faq-answer {
             max-height: 150px;
-            padding: 0 20px 20px;
+            padding-bottom: 18px;
         }
 
-        .faq-item.active .question i {
-            transform: rotate(180deg);
+        .faq-item.active .faq-question i { transform: rotate(180deg); }
+        .faq-question i { transition: transform 0.3s ease; }
+
+        /* Order Form Box */
+        .order-section {
+            padding: 20px 8% 50px;
+            display: flex;
+            justify-content: center;
         }
 
-        /* ================================
-           ORDER FORM
-        ================================= */
-
-        .order-wrapper {
-            max-width: 650px;
-            margin: auto;
-
-            padding: 35px;
-
+        .order-box {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-radius: 28px;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(255,255,255,.07),
-                    rgba(255,255,255,.025)
-                );
-
-            border: 1px solid var(--border);
-
+            padding: 40px;
+            width: 100%;
+            max-width: 580px;
             box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 6px solid var(--primary-yellow);
         }
 
-        .order-wrapper h2 {
-            text-align: center;
-            margin-bottom: 8px;
-        }
+        .order-box h3 { text-align: center; font-size: 2rem; margin-bottom: 25px; color: var(--text-color); }
 
-        .order-wrapper > p {
-            text-align: center;
-            color: #999;
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 17px;
-        }
-
-        .form-group label {
-            display: block;
-
-            margin-bottom: 7px;
-
-            font-size: 14px;
-            font-weight: 700;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 6px; color: #ddd; font-size: 0.95rem; }
+        .form-group input, .form-group select, .form-group textarea {
             width: 100%;
-
-            padding: 14px 15px;
-
-            background: rgba(255,255,255,.055);
-
-            border: 1px solid rgba(255,255,255,.12);
-
-            border-radius: 13px;
-
+            padding: 13px 15px;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            font-size: 0.95rem;
             outline: none;
-
-            color: white;
-
-            font-size: 14px;
-
-            transition: .3s;
+            background: rgba(20, 20, 20, 0.8);
+            color: var(--text-color);
+            transition: 0.3s;
         }
 
-        .form-group textarea {
-            resize: vertical;
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--primary-yellow);
+            background: #1a1a1a;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
         }
 
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            border-color: var(--yellow);
+        .order-box .btn { width: 100%; margin-top: 10px; justify-content: center; }
 
-            box-shadow:
-                0 0 0 3px rgba(255,210,28,.08);
-        }
-
-        select option {
-            background: #111;
-            color: white;
-        }
-
-        .whatsapp-btn {
-            width: 100%;
-
-            margin-top: 8px;
-
-            background: #20c967;
-
-            color: white;
-
-            border: none;
-
-            padding: 16px;
-
-            border-radius: 14px;
-
-            font-size: 16px;
-            font-weight: 900;
-
-            cursor: pointer;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-
-            transition: .3s;
-        }
-
-        .whatsapp-btn:hover {
-            transform: translateY(-3px);
-            background: #25dc72;
-
-            box-shadow:
-                0 15px 35px rgba(32,201,103,.2);
-        }
-
-        /* ================================
-           FOOTER
-        ================================= */
-
-        footer {
-            margin-top: 50px;
-
-            padding: 40px 20px;
-
-            text-align: center;
-
-            border-top: 1px solid rgba(255,255,255,.1);
-
-            background: rgba(0,0,0,.7);
-        }
-
-        footer img {
-            width: 65px;
-            margin: 0 auto 12px;
-        }
-
-        footer h3 {
-            font-size: 25px;
-        }
-
-        footer h3 span {
-            color: var(--yellow);
-        }
-
-        footer p {
-            color: #777;
-            font-size: 13px;
-            margin-top: 8px;
-        }
-
-        /* ================================
-           FLOATING BUTTONS
-        ================================= */
-
-        .floating {
+        /* Floating Order Button (Right Side) */
+        .floating-order-btn {
             position: fixed;
-
-            bottom: 22px;
-
-            width: 58px;
-            height: 58px;
-
-            border-radius: 50%;
-
-            display: grid;
-            place-items: center;
-
-            z-index: 999;
-
-            font-size: 24px;
-
-            border: 1px solid rgba(255,255,255,.25);
-
-            box-shadow:
-                0 12px 30px rgba(0,0,0,.5);
-
-            transition: .3s;
-        }
-
-        .floating:hover {
-            transform: scale(1.12) translateY(-4px);
-        }
-
-        .floating-insta {
-            left: 20px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #feda75,
-                    #d62976,
-                    #962fbf
-                );
-        }
-
-        .floating-wa {
-            right: 20px;
-            background: #20c967;
-        }
-
-        /* ================================
-           IMAGE MODAL
-        ================================= */
-
-        .modal {
-            position: fixed;
-
-            inset: 0;
-
-            z-index: 5000;
-
-            background: rgba(0,0,0,.9);
-
-            display: none;
-
-            align-items: center;
-            justify-content: center;
-
-            padding: 20px;
-        }
-
-        .modal.show {
-            display: flex;
-        }
-
-        .modal img {
-            max-width: 95%;
-            max-height: 90vh;
-
-            object-fit: contain;
-
-            border-radius: 10px;
-
-            box-shadow:
-                0 20px 80px black;
-        }
-
-        .close-modal {
-            position: absolute;
-
-            top: 20px;
+            bottom: 25px;
             right: 25px;
-
-            width: 45px;
-            height: 45px;
-
-            border-radius: 50%;
-
-            border: none;
-
-            background: white;
-            color: black;
-
-            font-size: 20px;
-
-            cursor: pointer;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: #fff;
+            padding: 14px 22px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: whatsappPulse 2s infinite ease-in-out;
+            transition: all 0.3s ease;
         }
 
-        /* ================================
-           REVEAL
-        ================================= */
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition:
-                opacity .7s var(--ease),
-                transform .7s var(--ease);
+        @keyframes whatsappPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); }
+            50% { transform: scale(1.06); box-shadow: 0 15px 35px rgba(37, 211, 102, 0.7); }
         }
 
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .floating-order-btn:hover { animation-play-state: paused; transform: scale(1.1) translateY(-4px); }
+
+        /* Floating Instagram Button (Left Side) */
+        .floating-insta-btn {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            color: #fff;
+            padding: 14px 22px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(220, 39, 67, 0.4);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: instaPulse 2s infinite ease-in-out;
+            transition: all 0.3s ease;
         }
 
-        /* ================================
-           MOBILE
-        ================================= */
-
-        @media(max-width: 850px) {
-
-            header {
-                flex-direction: column;
-                padding: 12px 5%;
-            }
-
-            nav {
-                gap: 12px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            nav a {
-                font-size: 12px;
-            }
-
-            .hero {
-                min-height: 80vh;
-                padding-top: 60px;
-            }
-
-            .hero h1 {
-                letter-spacing: -2px;
-            }
-
-            .hero-description {
-                font-size: 15px;
-            }
-
-            .steps,
-            .pricing {
-                grid-template-columns: 1fr;
-            }
-
-            .portfolio {
-                grid-template-columns: repeat(2,1fr);
-            }
-
-            .features {
-                grid-template-columns: 1fr;
-            }
+        @keyframes instaPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(220, 39, 67, 0.4); }
+            50% { transform: scale(1.06); box-shadow: 0 15px 35px rgba(220, 39, 67, 0.7); }
         }
 
-        @media(max-width: 500px) {
+        .floating-insta-btn:hover { animation-play-state: paused; transform: scale(1.1) translateY(-4px); }
 
-            .announcement {
-                font-size: 11px;
-            }
-
-            .brand-name {
-                font-size: 21px;
-            }
-
-            .brand img {
-                width: 42px;
-                height: 42px;
-            }
-
-            nav a:nth-child(2),
-            nav a:nth-child(3) {
-                display: none;
-            }
-
-            .hero {
-                padding-left: 5%;
-                padding-right: 5%;
-            }
-
-            .hero-logo {
-                width: 100px;
-                height: 100px;
-            }
-
-            .hero h1 {
-                font-size: 44px;
-            }
-
-            .hero-buttons {
-                width: 100%;
-            }
-
-            .hero-buttons .btn {
-                width: 100%;
-            }
-
-            .section {
-                padding: 60px 5%;
-            }
-
-            .portfolio {
-                gap: 10px;
-            }
-
-            .art {
-                border-radius: 13px;
-            }
-
-            .order-wrapper {
-                padding: 23px 17px;
-            }
-
-            .floating {
-                width: 52px;
-                height: 52px;
-                font-size: 21px;
-                bottom: 15px;
-            }
-
-            .floating-insta {
-                left: 14px;
-            }
-
-            .floating-wa {
-                right: 14px;
-            }
+        /* Footer */
+        footer {
+            background: #000;
+            color: #fff;
+            text-align: center;
+            padding: 35px 20px;
+            margin-top: 30px;
+            border-top: 5px solid var(--primary-yellow);
         }
 
+        footer h3 { font-size: 1.6rem; margin-bottom: 6px; }
+        footer p { color: #aaa; font-size: 0.9rem; }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 10px; padding: 12px 5%; }
+            nav { gap: 12px; flex-wrap: wrap; justify-content: center; }
+            .hero h2 { font-size: 2.1rem; }
+            .hero p { font-size: 1rem; }
+            .section-title { font-size: 1.9rem; margin: 45px 0 25px; }
+            .pricing-container, .steps-container, .testimonials-container, .insta-banner { padding: 0 5% 30px; gap: 20px; }
+            .order-section { padding: 10px 5% 40px; }
+            .order-box { padding: 25px 18px; }
+            .portfolio-grid { padding: 0 5% 30px; grid-template-columns: 1fr; }
+            .floating-order-btn { bottom: 15px; right: 15px; padding: 11px 16px; font-size: 0.9rem; }
+            .floating-insta-btn { bottom: 15px; left: 15px; padding: 11px 16px; font-size: 0.9rem; }
+        }
     </style>
 </head>
-
 <body>
 
-<div class="background">
-    <div class="glow red"></div>
-    <div class="glow yellow"></div>
-</div>
+    <!-- Top Announcement Bar -->
+    <div class="announcement-bar">
+        🎉 Special Offer: Free Secure Packaging & Fast Delivery on all Orders! 🎨
+    </div>
 
+    <!-- Glowing Background Orbs -->
+    <div class="ambient-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
 
-<!-- ================================
-     ANNOUNCEMENT
-================================ -->
-
-<div class="announcement">
-    🎨 Custom Handmade Sketches • Graphite & Charcoal • Order Now
-</div>
-
-
-<!-- ================================
-     HEADER
-================================ -->
-
-<header>
-
-    <a href="#home" class="brand">
-
-        <img src="logo.png" alt="Devartsx Logo">
-
-        <div class="brand-name">
-            Devarts<span>x</span>
+    <!-- Header Section -->
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" onerror="this.src='https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=100'" alt="Devartsx Logo">
+            <h1>Devarts<span class="shimmer-text">x</span></h1>
         </div>
+        <nav>
+            <a href="#hero">Home</a>
+            <a href="#steps">How It Works</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#pricing">Pricing</a>
+            <a href="https://instagram.com/devartsx" target="_blank" class="nav-insta-link">
+                <i class="fa-brands fa-instagram"></i> devartsx
+            </a>
+            <a href="#order">Order</a>
+        </nav>
+    </header>
 
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <h2>Handmade Realistic <span>Sketches</span></h2>
+        <p>Get custom graphite & charcoal portraits created with high precision. The ultimate timeless gift for your loved ones.</p>
+        <div class="hero-buttons">
+            <a href="#order" class="btn"><i class="fa-solid fa-paintbrush"></i> Order Your Sketch</a>
+            <a href="https://instagram.com/devartsx" target="_blank" class="btn btn-insta"><i class="fa-brands fa-instagram"></i> Follow me on Instagram</a>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <h2 class="section-title" id="steps">How to <span class="shimmer-text">Order</span></h2>
+    <div class="steps-container">
+        <div class="step-card">
+            <div class="step-icon">1</div>
+            <h4>Choose Photo</h4>
+            <p>Select a clear reference photo you want to convert into a sketch.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-icon">2</div>
+            <h4>Fill Details</h4>
+            <p>Submit your name, size, and custom instructions on our form below.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-icon">3</div>
+            <h4>WhatsApp & Relax</h4>
+            <p>Send details to WhatsApp, share your photo, and get doorstep delivery!</p>
+        </div>
+    </div>
+
+    <!-- Portfolio Grid -->
+    <h2 class="section-title" id="portfolio">My <span class="shimmer-text">Portfolio</span></h2>
+    <div class="portfolio-grid">
+        <div class="portfolio-item" data-title="Shiv Parvati Sketch">
+            <img src="SAVE_20260811_152926.jpg" onerror="this.src='https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=600'" alt="Shiv Parvati Sketch">
+        </div>
+        <div class="portfolio-item" data-title="Anime Art">
+            <img src="file_000000002b608211b7d1d757faceb747.png" onerror="this.src='https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=600'" alt="Anime Art Giyu">
+        </div>
+        <div class="portfolio-item" data-title="Lord Ganesha Portrait">
+            <img src="file_000000006c408207b271675b9f635fda.png" onerror="this.src='https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=600'" alt="Lord Ganesha Artwork">
+        </div>
+        <div class="portfolio-item" data-title="Hyper-Realistic Eye">
+            <img src="eye-detail.jpg" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=600'" alt="Eye Sketch Artwork">
+        </div>
+    </div>
+
+    <!-- Pricing Section -->
+    <h2 class="section-title" id="pricing">Sketch <span class="shimmer-text">Pricing</span></h2>
+    <div class="pricing-container">
+        <div class="price-card">
+            <h3>A4 Size Sketch</h3>
+            <div class="price">₹599</div>
+            <p>Perfect choice for single face portraits & closeups with fine graphite shading.</p>
+            <a href="#order" class="btn">Book A4 Size</a>
+        </div>
+        <div class="price-card">
+            <h3>A3 Size Sketch</h3>
+            <div class="price">₹999</div>
+            <p>Best for detailed couple portraits, religious art & deep charcoal artwork.</p>
+            <a href="#order" class="btn">Book A3 Size</a>
+        </div>
+    </div>
+
+    <!-- Testimonials Section -->
+    <h2 class="section-title">Client <span class="shimmer-text">Reviews</span></h2>
+    <div class="testimonials-container">
+        <div class="testimonial-card">
+            <div class="stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p>"Ordered an A3 couple portrait for my anniversary. The detailing is just mind-blowing! Everyone loved it."</p>
+            <h5>- Aman Sharma</h5>
+        </div>
+        <div class="testimonial-card">
+            <div class="stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p>"Superb work! The delivery was secure and the sketch looked even better than the real photo."</p>
+            <h5>- Priya Verma</h5>
+        </div>
+    </div>
+
+    <!-- Instagram Follow Banner Section -->
+    <div class="insta-banner">
+        <div class="insta-box">
+            <h3>Connect with us on Instagram</h3>
+            <p style="color: #bbb; font-size: 0.95rem; margin-bottom: 5px;">See latest sketch reels, behind-the-scenes & daily artwork updates.</p>
+            <a href="https://instagram.com/devartsx" target="_blank" class="insta-btn">
+                <i class="fa-brands fa-instagram" style="font-size: 1.3rem;"></i> Follow me on Instagram
+            </a>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <h2 class="section-title">Frequently Asked <span class="shimmer-text">Questions</span></h2>
+    <div class="faq-container">
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Kitne dino mein sketch tayar ho jata hai?</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                Ek sketch ko banane aur dry hone mein lagbhag 3 se 5 working days lagte hain, uske baad dispatch hota hai.
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Kya photo WhatsApp par bhejni hogi?</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                Haan! Form submit karne ke baad jab aap WhatsApp par redirect honge, tab wahan apni clear reference photo bhej sakte hain.
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>Frame sath mein milta hai kya?</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                Sketches ko safely roll karke hard safety tube mein bheja jata hai taaki damage na ho. Frame aap apne local market se easily karwa sakte hain.
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Form Section -->
+    <section class="order-section" id="order">
+        <div class="order-box">
+            <h3>Order <span class="shimmer-text">Your Sketch</span></h3>
+            <form onsubmit="sendToWhatsApp(event)">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="phone">WhatsApp Phone Number</label>
+                    <input type="tel" id="phone" required placeholder="Enter mobile number">
+                </div>
+                <div class="form-group">
+                    <label for="size">Select Artwork Size</label>
+                    <select id="size" required>
+                        <option value="A4 Size Sketch (₹599)">A4 Size Sketch - ₹599</option>
+                        <option value="A3 Size Sketch (₹999)">A3 Size Sketch - ₹999</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="address">Delivery Address (Full Address with Pincode)</label>
+                    <textarea id="address" rows="3" required placeholder="House No, Street, City, State, Pincode"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Special Instructions & Customisations</label>
+                    <textarea id="notes" rows="3" placeholder="Any specific requirements, name writing, background changes..."></textarea>
+                </div>
+                <button type="submit" id="submitBtn" class="btn"><i class="fa-brands fa-whatsapp" style="font-size:1.3rem;"></i> Order via WhatsApp</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Floating Instagram Button (Left Side) -->
+    <a href="https://instagram.com/devartsx" target="_blank" class="floating-insta-btn">
+        <i class="fa-brands fa-instagram" style="font-size: 1.4rem;"></i> Instagram
     </a>
 
-
-    <nav>
-
-        <a href="#home">Home</a>
-
-        <a href="#how">How It Works</a>
-
-        <a href="#portfolio">Portfolio</a>
-
-        <a href="#pricing">Pricing</a>
-
-        <a href="https://instagram.com/devartsx"
-           target="_blank">
-            <i class="fa-brands fa-instagram"></i>
-            Instagram
-        </a>
-
-        <a href="#order" class="nav-order">
-            Order Now
-        </a>
-
-    </nav>
-
-</header>
-
-
-<!-- ================================
-     HERO
-================================ -->
-
-<section class="hero" id="home">
-
-    <img
-        src="logo.png"
-        alt="Devartsx"
-        class="hero-logo"
-    >
-
-    <h1>
-        ART THAT
-        <span>FEELS REAL.</span>
-    </h1>
-
-    <p class="hero-description">
-        Handmade realistic portraits created with
-        graphite pencil and charcoal.
-        Turn your favourite photo into timeless artwork.
-    </p>
-
-
-    <div class="hero-buttons">
-
-        <a href="#order"
-           class="btn btn-red">
-
-            <i class="fa-solid fa-palette"></i>
-
-            Order Your Sketch
-
-        </a>
-
-
-        <a href="https://instagram.com/devartsx"
-           target="_blank"
-           class="btn btn-yellow">
-
-            <i class="fa-brands fa-instagram"></i>
-
-            Follow @devartsx
-
-        </a>
-
-    </div>
-
-</section>
-
-
-<!-- ================================
-     HOW IT WORKS
-================================ -->
-
-<section class="section" id="how">
-
-    <div class="section-heading reveal">
-
-        <div class="small">
-            Simple Process
-        </div>
-
-        <h2>
-            How To <span>Order</span>
-        </h2>
-
-        <p>
-            Ordering your custom sketch is quick and simple.
-        </p>
-
-    </div>
-
-
-    <div class="steps">
-
-        <div class="step reveal">
-
-            <div class="step-number">
-                01
-            </div>
-
-            <h3>
-                Choose Your Photo
-            </h3>
-
-            <p>
-                Select a clear photo that you want
-                converted into a handmade sketch.
-            </p>
-
-        </div>
-
-
-        <div class="step reveal">
-
-            <div class="step-number">
-                02
-            </div>
-
-            <h3>
-                Fill Order Details
-            </h3>
-
-            <p>
-                Select your artwork size and
-                enter your delivery details.
-            </p>
-
-        </div>
-
-
-        <div class="step reveal">
-
-            <div class="step-number">
-                03
-            </div>
-
-            <h3>
-                WhatsApp & Confirm
-            </h3>
-
-            <p>
-                Submit the form and WhatsApp
-                will open with your order message.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================================
-     PORTFOLIO
-================================ -->
-
-<section class="section" id="portfolio">
-
-    <div class="section-heading reveal">
-
-        <div class="small">
-            My Artwork
-        </div>
-
-        <h2>
-            Selected <span>Portfolio</span>
-        </h2>
-
-        <p>
-            Some of my graphite, charcoal and pencil artworks.
-        </p>
-
-    </div>
-
-
-    <div class="portfolio">
-
-        <div class="art reveal"
-             onclick="openImage(this)">
-
-            <img
-                src="SAVE_20260811_152926.jpg"
-                alt="Ganesha Pencil Sketch"
-            >
-
-            <div class="art-info">
-                <h3>Ganesha Sketch</h3>
-            </div>
-
-        </div>
-
-
-        <div class="art reveal"
-             onclick="openImage(this)">
-
-            <img
-                src="file_000000002b608211b7d1d757faceb747.png"
-                alt="Anime Pencil Artwork"
-            >
-
-            <div class="art-info">
-                <h3>Anime Artwork</h3>
-            </div>
-
-        </div>
-
-
-        <div class="art reveal"
-             onclick="openImage(this)">
-
-            <img
-                src="file_000000006c408207b271675b9f635fda.png"
-                alt="Shiv Parvati Charcoal Artwork"
-            >
-
-            <div class="art-info">
-                <h3>Shiv Parvati</h3>
-            </div>
-
-        </div>
-
-
-        <div class="art reveal"
-             onclick="openImage(this)">
-
-            <img
-                src="eye-detail.jpg"
-                alt="Realistic Eye Pencil Sketch"
-            >
-
-            <div class="art-info">
-                <h3>Realistic Eye</h3>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================================
-     PRICING
-================================ -->
-
-<section class="section" id="pricing">
-
-    <div class="section-heading reveal">
-
-        <div class="small">
-            Custom Artwork
-        </div>
-
-        <h2>
-            Sketch <span>Pricing</span>
-        </h2>
-
-        <p>
-            Handmade graphite and charcoal artwork.
-        </p>
-
-    </div>
-
-
-    <div class="pricing">
-
-
-        <!-- A4 -->
-
-        <div class="price-card reveal">
-
-            <h3>
-                A4 Sketch
-            </h3>
-
-            <div class="price">
-                ₹599
-            </div>
-
-            <p>
-                Perfect for single portraits,
-                faces and detailed graphite pencil artwork.
-            </p>
-
-            <a href="#order"
-               class="btn btn-yellow">
-
-                Book A4
-
-            </a>
-
-        </div>
-
-
-        <!-- A3 -->
-
-        <div class="price-card featured reveal">
-
-            <div class="popular">
-                BEST CHOICE
-            </div>
-
-            <h3>
-                A3 Sketch
-            </h3>
-
-            <div class="price">
-                ₹999
-            </div>
-
-            <p>
-                Ideal for couple portraits,
-                detailed artwork and charcoal sketches.
-            </p>
-
-            <a href="#order"
-               class="btn btn-red">
-
-                Book A3
-
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================================
-     WHY DEVARTSX
-================================ -->
-
-<section class="section">
-
-    <div class="section-heading reveal">
-
-        <div class="small">
-            Why Devartsx
-        </div>
-
-        <h2>
-            Made With <span>Passion</span>
-        </h2>
-
-    </div>
-
-
-    <div class="features">
-
-        <div class="feature reveal">
-
-            <i class="fa-solid fa-pencil"></i>
-
-            <span>
-                Handmade graphite & charcoal artwork
-            </span>
-
-        </div>
-
-
-        <div class="feature reveal">
-
-            <i class="fa-solid fa-eye"></i>
-
-            <span>
-                High-detail realistic shading
-            </span>
-
-        </div>
-
-
-        <div class="feature reveal">
-
-            <i class="fa-solid fa-box"></i>
-
-            <span>
-                Carefully packed for delivery
-            </span>
-
-        </div>
-
-
-        <div class="feature reveal">
-
-            <i class="fa-solid fa-heart"></i>
-
-            <span>
-                Made especially for your memories
-            </span>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================================
-     INSTAGRAM
-================================ -->
-
-<section class="section">
-
-    <div class="instagram-box reveal">
-
-        <div class="instagram-icon">
-            <i class="fa-brands fa-instagram"></i>
-        </div>
-
-        <h2>
-            Follow <span style="color:#ffd21c;">
-                @devartsx
-            </span>
-        </h2>
-
-        <p>
-            Watch sketch reels, artwork updates
-            and behind-the-scenes content.
-        </p>
-
-        <a
-            href="https://instagram.com/devartsx"
-            target="_blank"
-            class="btn btn-yellow">
-
-            <i class="fa-brands fa-instagram"></i>
-
-            Open Instagram
-
-        </a>
-
-    </div>
-
-</section>
-
-
-<!-- ================================
-     FAQ
-================================ -->
-
-<section class="section">
-
-    <div class="section-heading reveal">
-
-        <div class="small">
-            FAQ
-        </div>
-
-        <h2>
-            Frequently Asked <span>Questions</span>
-        </h2>
-
-    </div>
-
-
-    <div class="faq">
-
-
-        <div class="faq-item reveal">
-
-            <div class="question"
-                 onclick="toggleFAQ(this)">
-
-                <span>
-                    Sketch banne mein kitna time lagta hai?
-                </span>
-
-                <i class="fa-solid fa-chevron-down"></i>
-
-            </div>
-
-            <div class="answer">
-
-                Usually sketch banane mein
-                approximately 3–5 working days lag sakte hain.
-                Dispatch time location ke according vary ho sakta hai.
-
-            </div>
-
-        </div>
-
-
-        <div class="faq-item reveal">
-
-            <div class="question"
-                 onclick="toggleFAQ(this)">
-
-                <span>
-                    Reference photo kaise bheju?
-                </span>
-
-                <i class="fa-solid fa-chevron-down"></i>
-
-            </div>
-
-            <div class="answer">
-
-                Order form submit karne ke baad WhatsApp open hoga.
-                Wahi par apni clear reference photo send kar sakte hain.
-
-            </div>
-
-        </div>
-
-
-        <div class="faq-item reveal">
-
-            <div class="question"
-                 onclick="toggleFAQ(this)">
-
-                <span>
-                    Frame included hai?
-                </span>
-
-                <i class="fa-solid fa-chevron-down"></i>
-
-            </div>
-
-            <div class="answer">
-
-                Current pricing mein frame included nahi hai.
-                Artwork safely packed karke dispatch kiya jayega.
-
-            </div>
-
-        </div>
-
-
-        <div class="faq-item reveal">
-
-            <div class="question"
-                 onclick="toggleFAQ(this)">
-
-                <span>
-                    A4 aur A3 mein kya difference hai?
-                </span>
-
-                <i class="fa-solid fa-chevron-down"></i>
-
-            </div>
-
-            <div class="answer">
-
-                A4 single portraits ke liye suitable hai,
-                jabki A3 larger and more detailed artwork
-                ke liye better option hai.
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================================
-     ORDER
-================================ -->
-
-<section class="section" id="order">
-
-    <div class="section-heading reveal">
-
-        <div class="small">
-            Start Your Artwork
-        </div>
-
-        <h2>
-            Order Your <span>Sketch</span>
-        </h2>
-
-        <p>
-            Details fill karein — submit karte hi WhatsApp par
-            order message ready ho jayega.
-        </p>
-
-    </div>
-
-
-    <div class="order-wrapper reveal">
-
-        <form onsubmit="sendToWhatsApp(event)">
-
-
-            <div class="form-group">
-
-                <label>
-                    Your Name *
-                </label>
-
-                <input
-                    type="text"
-                    id="name"
-                    required
-                    placeholder="Enter your name"
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    WhatsApp Number *
-                </label>
-
-                <input
-                    type="tel"
-                    id="phone"
-                    required
-                    placeholder="Enter your WhatsApp number"
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Select Size *
-                </label>
-
-                <select id="size" required>
-
-                    <option value="A4 Sketch - ₹599">
-                        A4 Sketch — ₹599
-                    </option>
-
-                    <option value="A3 Sketch - ₹999">
-                        A3 Sketch — ₹999
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Delivery Address *
-                </label>
-
-                <textarea
-                    id="address"
-                    rows="3"
-                    required
-                    placeholder="House No, Street, City, State, Pincode"
-                ></textarea>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Special Instructions
-                </label>
-
-                <textarea
-                    id="notes"
-                    rows="3"
-                    placeholder="Any special requirements..."
-                ></textarea>
-
-            </div>
-
-
-            <button
-                type="submit"
-                class="whatsapp-btn">
-
-                <i class="fa-brands fa-whatsapp"></i>
-
-                Send Order on WhatsApp
-
-            </button>
-
-        </form>
-
-    </div>
-
-</section>
-
-
-<!-- ================================
-     FLOATING BUTTONS
-================================ -->
-
-<a
-    href="https://instagram.com/devartsx"
-    target="_blank"
-    class="floating floating-insta"
-    aria-label="Instagram">
-
-    <i class="fa-brands fa-instagram"></i>
-
-</a>
-
-
-<a
-    href="#order"
-    class="floating floating-wa"
-    aria-label="Order">
-
-    <i class="fa-brands fa-whatsapp"></i>
-
-</a>
-
-
-<!-- ================================
-     IMAGE MODAL
-================================ -->
-
-<div class="modal" id="imageModal">
-
-    <button
-        class="close-modal"
-        onclick="closeImage()">
-
-        <i class="fa-solid fa-xmark"></i>
-
-    </button>
-
-    <img
-        id="modalImage"
-        src=""
-        alt="Artwork Preview">
-
-</div>
-
-
-<!-- ================================
-     FOOTER
-================================ -->
-
-<footer>
-
-    <img
-        src="logo.png"
-        alt="Devartsx Logo">
-
-    <h3>
-        Devarts<span>x</span>
-    </h3>
-
-    <p>
-        Handmade Realistic Pencil & Charcoal Art
-    </p>
-
-    <p>
-        © 2026 Devartsx. All Rights Reserved.
-    </p>
-
-</footer>
-
-
-<!-- ================================
-     JAVASCRIPT
-================================ -->
-
-<script>
-
-
-/* =================================
-   WHATSAPP ORDER
-================================= */
-
-function sendToWhatsApp(event) {
-
-    event.preventDefault();
-
-
-    const name =
-        document.getElementById("name")
-        .value.trim();
-
-
-    const phone =
-        document.getElementById("phone")
-        .value.trim();
-
-
-    const size =
-        document.getElementById("size")
-        .value;
-
-
-    const address =
-        document.getElementById("address")
-        .value.trim();
-
-
-    const notes =
-        document.getElementById("notes")
-        .value.trim() || "None";
-
-
-    if (!name || !phone || !address) {
-
-        alert(
-            "Please fill all required fields."
-        );
-
-        return;
-
-    }
-
-
-    /*
-       DEVARTSX WHATSAPP NUMBER
-
-       Country code + number
-       without + or spaces
-    */
-
-    const whatsappNumber =
-        "917827417956";
-
-
-    const message =
-
-`*🎨 NEW SKETCH ORDER - DEVARTSX*
-
-━━━━━━━━━━━━━━━━━━
-
-*👤 Name:* ${name}
-
-*📱 Customer WhatsApp:* ${phone}
-
-*📄 Artwork Size:* ${size}
-
-*📍 Delivery Address:*
-${address}
-
-*📝 Special Instructions:*
-${notes}
-
-━━━━━━━━━━━━━━━━━━
-
-*📸 Reference Photo:*
-I will send the reference photo here.
-
-Thank you! 🎨`;
-
-
-    const whatsappURL =
-        "https://wa.me/" +
-        whatsappNumber +
-        "?text=" +
-        encodeURIComponent(message);
-
-
-    window.open(
-        whatsappURL,
-        "_blank"
-    );
-
-}
-
-
-/* =================================
-   FAQ
-================================= */
-
-function toggleFAQ(element) {
-
-    const item =
-        element.parentElement;
-
-
-    document
-        .querySelectorAll(".faq-item")
-        .forEach(faq => {
-
-            if (faq !== item) {
-
-                faq.classList.remove(
-                    "active"
-                );
-
-            }
-
-        });
-
-
-    item.classList.toggle("active");
-
-}
-
-
-/* =================================
-   PORTFOLIO IMAGE MODAL
-================================= */
-
-function openImage(element) {
-
-    const image =
-        element.querySelector("img");
-
-
-    const modal =
-        document.getElementById(
-            "imageModal"
-        );
-
-
-    const modalImage =
-        document.getElementById(
-            "modalImage"
-        );
-
-
-    modalImage.src =
-        image.src;
-
-
-    modal.classList.add(
-        "show"
-    );
-
-}
-
-
-function closeImage() {
-
-    document
-        .getElementById("imageModal")
-        .classList.remove("show");
-
-}
-
-
-/* Close modal when clicking outside */
-
-document
-    .getElementById("imageModal")
-    .addEventListener(
-        "click",
-        function(event) {
-
-            if (
-                event.target === this
-            ) {
-
-                closeImage();
-
-            }
-
-        }
-    );
-
-
-/* =================================
-   SCROLL REVEAL
-================================= */
-
-const observer =
-    new IntersectionObserver(
-
-        entries => {
-
-            entries.forEach(
-                entry => {
-
-                    if (
-                        entry.isIntersecting
-                    ) {
-
-                        entry.target
-                            .classList
-                            .add("visible");
-
-                        observer.unobserve(
-                            entry.target
-                        );
-
-                    }
-
-                }
-            );
-
-        },
-
-        {
-            threshold: 0.12
+    <!-- Floating Order Button (Right Side) -->
+    <a href="#order" class="floating-order-btn">
+        <i class="fa-brands fa-whatsapp" style="font-size: 1.4rem;"></i> Order Now
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <h3>Devarts<span class="shimmer-text">x</span></h3>
+        <p>&copy; 2026 Devartsx. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Interactive Script -->
+    <script>
+        // FAQ Accordion Toggle
+        function toggleFaq(element) {
+            const parent = element.parentElement;
+            parent.classList.toggle('active');
         }
 
-    );
+        // Send Order Direct to WhatsApp
+        function sendToWhatsApp(event) {
+            event.preventDefault();
 
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const size = document.getElementById('size').value;
+            const address = document.getElementById('address').value;
+            const notes = document.getElementById('notes').value || 'None';
+            
+            const whatsappNumber = "917827417956";
+            const message = `*NEW SKETCH ORDER - DEVARTSX*\n\n` +
+                            `*Name:* ${name}\n` +
+                            `*Phone:* ${phone}\n` +
+                            `*Selected Size:* ${size}\n` +
+                            `*Delivery Address:* ${address}\n` +
+                            `*Customisation Instructions:* ${notes}\n\n` +
+                            `*(Note: Reference photo will be shared here)*`;
 
-document
-    .querySelectorAll(".reveal")
-    .forEach(element => {
-
-        observer.observe(element);
-
-    });
-
-
-/* =================================
-   ESCAPE CLOSE MODAL
-================================= */
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key === "Escape"
-        ) {
-
-            closeImage();
-
+            window.location.href = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`;
         }
-
-    }
-);
-
-</script>
-
+    </script>
 </body>
 </html>
