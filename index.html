@@ -4,18 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Devartsx - Custom Handmade Sketches</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-color: #0a0a0a;
-            --text-color: #f0f0f0;
+            --bg-color: #060607;
+            --bg-color-2: #0a0a0c;
+            --text-color: #f5f5f8;
             --primary-yellow: #ffd700;
-            --gold-glow: rgba(255, 215, 0, 0.4);
-            --card-bg: rgba(30, 30, 30, 0.65);
-            --shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            --gold-glow: rgba(255, 215, 0, 0.38);
+
+            --glass-bg: rgba(255, 255, 255, 0.055);
+            --glass-bg-strong: rgba(255, 255, 255, 0.11);
+            --glass-border-soft: rgba(255, 255, 255, 0.13);
+            --glass-shadow: 0 22px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.09), inset 0 -1px 0 rgba(0,0,0,0.25);
+            --glass-blur: blur(20px) saturate(160%);
+
+            --ease-liquid: cubic-bezier(0.22, 1, 0.36, 1);
+            --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         * {
@@ -23,180 +30,149 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
-            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
         }
 
+        html { scroll-behavior: smooth; }
+
         body {
-            background-color: var(--bg-color);
+            background: radial-gradient(ellipse 120% 80% at 50% -10%, #0d0d10 0%, var(--bg-color) 55%, var(--bg-color-2) 100%);
             color: var(--text-color);
             overflow-x: hidden;
             position: relative;
-            animation: fadeInBody 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            -webkit-font-smoothing: antialiased;
         }
 
-        @keyframes fadeInBody {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Ambient Glowing Background */
         .ambient-bg {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            inset: 0;
             z-index: -1;
             overflow: hidden;
             pointer-events: none;
+            background:
+                radial-gradient(ellipse 80% 60% at 12% 8%, rgba(255, 215, 0, 0.11), transparent 60%),
+                radial-gradient(ellipse 70% 55% at 88% 88%, rgba(255, 190, 60, 0.09), transparent 60%);
         }
 
         .orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.4;
-            animation: orbFloat 12s infinite alternate ease-in-out;
+            filter: blur(90px);
+            opacity: 0.3;
+            will-change: transform;
+            animation: orbFloat 18s infinite alternate linear;
+            transform: translateZ(0);
         }
 
-        .orb-1 {
-            width: 350px;
-            height: 350px;
-            background: #ffe566;
-            top: -40px;
-            left: -40px;
-        }
-
-        .orb-2 {
-            width: 400px;
-            height: 400px;
-            background: #fff099;
-            bottom: -60px;
-            right: -40px;
-            animation-delay: -6s;
-        }
+        .orb-1 { width: 380px; height: 380px; background: #ffe566; top: -60px; left: -60px; }
+        .orb-2 { width: 420px; height: 420px; background: #fff099; bottom: -80px; right: -60px; animation-delay: -9s; }
 
         @keyframes orbFloat {
-            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            100% { transform: translate(50px, 60px) scale(1.15) rotate(15deg); }
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(35px, 40px, 0); }
         }
 
-        /* Top Announcement Bar */
+        @media (max-width: 768px) {
+            .orb { filter: blur(50px); opacity: 0.22; animation: none; }
+        }
+
         .announcement-bar {
-            background: linear-gradient(90deg, #b8970b, #ffd700, #b8970b);
-            background-size: 200% auto;
+            background: linear-gradient(100deg, #b8970b, #ffd700, #b8970b);
             color: #111;
             text-align: center;
-            padding: 8px 15px;
-            font-size: 0.9rem;
+            padding: 9px 15px;
+            font-size: 0.88rem;
             font-weight: 700;
-            animation: shimmer 3s linear infinite;
             position: relative;
             z-index: 1001;
+            letter-spacing: 0.2px;
         }
 
-        /* Header */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 8%;
-            background: rgba(20, 20, 20, 0.75);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            padding: 14px 8%;
+            background: rgba(10, 10, 12, 0.55);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.35);
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+            border-bottom: 1px solid var(--glass-border-soft);
         }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .logo-container { display: flex; align-items: center; gap: 12px; }
 
         .logo-container img {
-            width: 50px;
-            height: 50px;
+            width: 48px; height: 48px;
             object-fit: cover;
             border-radius: 50%;
             border: 2px solid var(--primary-yellow);
-            box-shadow: 0 0 15px var(--gold-glow);
-            transition: transform 0.5s ease;
+            box-shadow: 0 0 18px var(--gold-glow);
+            transition: transform 0.4s var(--ease-spring);
         }
 
-        .logo-container img:hover {
-            transform: scale(1.1) rotate(10deg);
-        }
+        .logo-container img:active, .logo-container img:hover { transform: scale(1.08) rotate(8deg); }
 
-        .logo-container h1 {
-            font-size: 22px;
-            font-weight: 800;
-            color: var(--text-color);
-        }
+        .logo-container h1 { font-size: 22px; font-weight: 800; color: var(--text-color); }
 
         .shimmer-text {
             background: linear-gradient(90deg, #b8970b 0%, #ffd700 50%, #b8970b 100%);
             background-size: 200% auto;
             color: transparent;
             -webkit-background-clip: text;
-            animation: shimmer 3s linear infinite;
+            background-clip: text;
+            animation: shimmer 3.2s linear infinite;
         }
 
-        @keyframes shimmer {
-            to { background-position: 200% center; }
-        }
+        @keyframes shimmer { to { background-position: 200% center; } }
 
-        nav {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
+        nav { display: flex; gap: 18px; align-items: center; }
 
         nav a {
             text-decoration: none;
             color: var(--text-color);
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.94rem;
             position: relative;
-            transition: 0.3s;
+            transition: color 0.3s var(--ease-liquid);
         }
 
         nav a::after {
             content: '';
             position: absolute;
-            width: 0;
-            height: 3px;
-            bottom: -4px;
-            left: 0;
-            background-color: var(--primary-yellow);
+            width: 0; height: 2px;
+            bottom: -4px; left: 0;
+            background: var(--primary-yellow);
             border-radius: 2px;
-            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: width 0.3s var(--ease-liquid);
         }
 
         nav a:hover::after { width: 100%; }
         nav a:hover { color: #ffd700; }
+        nav a:active { transform: scale(0.95); }
 
-        /* Nav Instagram Highlight Link */
         .nav-insta-link {
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            border: 1px solid rgba(255,255,255,0.25);
             color: #fff !important;
-            padding: 6px 14px;
+            padding: 7px 14px;
             border-radius: 20px;
             font-size: 0.85rem !important;
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            box-shadow: 0 4px 15px rgba(220, 39, 67, 0.3);
-            transition: transform 0.3s ease !important;
+            box-shadow: 0 4px 18px rgba(220, 39, 67, 0.35);
+            transition: transform 0.35s var(--ease-spring);
         }
 
         .nav-insta-link::after { display: none !important; }
-        .nav-insta-link:hover { transform: translateY(-2px); }
+        .nav-insta-link:hover { transform: translateY(-2px) scale(1.03); }
+        .nav-insta-link:active { transform: scale(0.96); }
+        .nav-insta-link svg { width: 16px; height: 16px; }
 
-        /* Hero Section */
         .hero {
             min-height: 70vh;
             display: flex;
@@ -205,108 +181,64 @@
             justify-content: center;
             text-align: center;
             padding: 40px 20px;
-            animation: fadeZoomIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
-            opacity: 0;
         }
 
-        @keyframes fadeZoomIn {
-            from { opacity: 0; transform: scale(0.95) translateY(20px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        .hero h2 {
-            font-size: 3.2rem;
-            margin-bottom: 20px;
-            line-height: 1.2;
-            font-weight: 800;
-            color: var(--text-color);
-        }
+        .hero h2 { font-size: 3.2rem; margin-bottom: 20px; line-height: 1.2; font-weight: 800; color: var(--text-color); }
 
         .hero h2 span {
             display: inline-block;
-            background: var(--primary-yellow);
+            background: linear-gradient(135deg, #ffd700, #ffc107);
             color: #111;
             padding: 4px 16px;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px var(--gold-glow);
-            animation: badgePulse 3s infinite ease-in-out;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.4);
+            box-shadow: 0 8px 22px var(--gold-glow);
         }
 
-        @keyframes badgePulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 8px 20px var(--gold-glow); }
-            50% { transform: scale(1.05); box-shadow: 0 15px 35px rgba(255, 215, 0, 0.7); }
-        }
+        .hero p { font-size: 1.15rem; color: #c2c2c8; max-width: 600px; margin-bottom: 25px; }
 
-        .hero p {
-            font-size: 1.15rem;
-            color: #bbb;
-            max-width: 600px;
-            margin-bottom: 25px;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+        .hero-buttons { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
 
         .btn {
-            background: linear-gradient(135deg, #ffd700, #ffcc00);
+            background: linear-gradient(135deg, #ffd700, #ffc107);
+            border: 1px solid rgba(255,255,255,0.4);
             color: #111;
             padding: 15px 32px;
             font-size: 1.05rem;
             font-weight: 700;
-            border: none;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 10px 25px var(--gold-glow);
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 10px 28px var(--gold-glow);
+            transition: transform 0.35s var(--ease-spring), box-shadow 0.3s var(--ease-liquid);
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            position: relative;
-            overflow: hidden;
         }
 
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: 0.5s;
-        }
+        .btn:hover { transform: translateY(-4px) scale(1.03); box-shadow: 0 18px 40px rgba(255, 215, 0, 0.55); }
+        .btn:active { transform: translateY(-1px) scale(0.98); }
+        .btn svg { width: 20px; height: 20px; }
 
-        .btn:hover::after { left: 100%; }
-        .btn:hover {
-            transform: translateY(-4px) scale(1.03);
-            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.7);
-        }
-
-        /* Hero Instagram Button */
         .btn-insta {
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
             color: #fff;
-            box-shadow: 0 10px 25px rgba(220, 39, 67, 0.35);
+            box-shadow: 0 10px 28px rgba(220, 39, 67, 0.35);
         }
-        .btn-insta:hover {
-            box-shadow: 0 20px 40px rgba(220, 39, 67, 0.6);
-        }
+        .btn-insta:hover { box-shadow: 0 18px 40px rgba(220, 39, 67, 0.5); }
 
-        /* Section Titles */
         .section-title {
             text-align: center;
             font-size: 2.4rem;
             margin: 60px 0 30px;
             font-weight: 800;
             color: var(--text-color);
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 0.6s var(--ease-liquid), transform 0.6s var(--ease-liquid);
         }
+        .section-title.in-view { opacity: 1; transform: translateY(0); }
 
-        /* How to Order Steps */
         .steps-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -314,39 +246,50 @@
             padding: 0 8% 40px;
         }
 
-        .step-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-radius: 20px;
-            padding: 30px 25px;
-            text-align: center;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease;
+        .step-card, .portfolio-item, .price-card, .testimonial-card, .faq-item, .order-box, .insta-box {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border-soft);
+            box-shadow: var(--glass-shadow);
+            position: relative;
         }
 
-        .step-card:hover { transform: translateY(-6px); }
+        .step-card {
+            border-radius: 22px;
+            padding: 30px 25px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: transform 0.4s var(--ease-liquid), box-shadow 0.4s var(--ease-liquid), background 0.3s var(--ease-liquid);
+        }
+
+        .step-card.in-view { animation: cardRise 0.55s var(--ease-liquid) forwards; }
+
+        @keyframes cardRise { to { opacity: 1; transform: translateY(0); } }
+
+        .step-card:hover, .step-card:active {
+            transform: translateY(-8px);
+            background: var(--glass-bg-strong);
+            box-shadow: 0 26px 52px rgba(0,0,0,0.5), 0 0 30px rgba(255,215,0,0.12);
+            border-color: rgba(255, 215, 0, 0.32);
+        }
 
         .step-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--primary-yellow);
+            width: 60px; height: 60px;
+            background: linear-gradient(135deg, #ffe566, #ffd700);
             color: #111;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             margin: 0 auto 15px;
-            font-size: 1.4rem;
-            font-weight: 800;
-            box-shadow: 0 5px 15px var(--gold-glow);
+            font-size: 1.4rem; font-weight: 800;
+            box-shadow: 0 6px 18px var(--gold-glow);
+            border: 1px solid rgba(255,255,255,0.35);
         }
 
         .step-card h4 { font-size: 1.2rem; margin-bottom: 8px; color: var(--text-color); }
-        .step-card p { font-size: 0.9rem; color: #999; }
+        .step-card p { font-size: 0.9rem; color: #9a9aa2; }
 
-        /* Portfolio Grid */
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -356,319 +299,254 @@
 
         .portfolio-item {
             height: 350px;
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 20px;
+            border-radius: 22px;
             overflow: hidden;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
             cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            animation: floatCard 6s ease-in-out infinite;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: transform 0.4s var(--ease-liquid), box-shadow 0.4s var(--ease-liquid), border-color 0.3s var(--ease-liquid);
         }
 
-        .portfolio-item:nth-child(even) { animation-delay: 3s; }
+        .portfolio-item.in-view { animation: cardRise 0.55s var(--ease-liquid) forwards; }
 
-        @keyframes floatCard {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
-        .portfolio-item:hover {
-            animation-play-state: paused;
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(255, 215, 0, 0.35);
-            border-color: rgba(255, 215, 0, 0.6);
+        .portfolio-item:hover, .portfolio-item:active {
+            transform: translateY(-10px) scale(1.015);
+            box-shadow: 0 28px 55px rgba(255, 215, 0, 0.28);
+            border-color: rgba(255, 215, 0, 0.55);
         }
 
         .portfolio-item img {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             object-fit: cover;
-            transition: transform 0.6s ease;
+            transition: transform 0.5s var(--ease-liquid);
         }
 
-        .portfolio-item:hover img { transform: scale(1.12); }
+        .portfolio-item:hover img, .portfolio-item:active img { transform: scale(1.08); }
 
         .portfolio-item::after {
             content: attr(data-title);
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
+            position: absolute; bottom: 0; left: 0; width: 100%;
             padding: 22px 15px;
             background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
-            color: #fff;
-            font-weight: 600;
-            font-size: 1.05rem;
-            text-align: center;
+            color: #fff; font-weight: 600; font-size: 1.05rem; text-align: center;
             transform: translateY(100%);
-            transition: transform 0.4s ease;
+            transition: transform 0.35s var(--ease-liquid);
+            z-index: 3;
         }
 
-        .portfolio-item:hover::after { transform: translateY(0); }
+        .portfolio-item:hover::after, .portfolio-item:active::after { transform: translateY(0); }
 
-        /* Pricing Cards */
-        .pricing-container {
-            display: flex;
-            justify-content: center;
-            gap: 35px;
-            padding: 0 8% 40px;
-            flex-wrap: wrap;
-        }
+        .pricing-container { display: flex; justify-content: center; gap: 35px; padding: 0 8% 40px; flex-wrap: wrap; }
 
         .price-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 24px;
+            border-radius: 26px;
             padding: 40px 30px;
-            width: 320px;
-            max-width: 100%;
+            width: 320px; max-width: 100%;
             text-align: center;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-top: 8px solid var(--primary-yellow);
-            transition: all 0.4s ease;
+            border-top: 2px solid var(--glass-border-soft);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: transform 0.4s var(--ease-liquid), box-shadow 0.4s var(--ease-liquid), background 0.3s var(--ease-liquid);
+            overflow: hidden;
         }
 
-        .price-card:hover {
+        .price-card.in-view { animation: cardRise 0.55s var(--ease-liquid) forwards; }
+
+        .price-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(90deg, #b8970b, #ffd700, #ffe566, #ffd700, #b8970b);
+        }
+
+        .price-card:hover, .price-card:active {
             transform: translateY(-10px);
-            box-shadow: 0 30px 60px rgba(255, 215, 0, 0.3);
+            background: var(--glass-bg-strong);
+            box-shadow: 0 32px 65px rgba(255, 215, 0, 0.24);
         }
 
         .price-card h3 { font-size: 1.7rem; margin-bottom: 10px; color: var(--text-color); }
-        .price-card .price { font-size: 2.8rem; color: #ffd700; margin-bottom: 15px; font-weight: 800; }
-        .price-card p { color: #999; margin-bottom: 20px; font-size: 0.95rem; }
-
-        /* Testimonials Section */
-        .testimonials-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            padding: 0 8% 40px;
+        .price-card .price {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #ffe566, #ffd700);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+            margin-bottom: 15px; font-weight: 800;
         }
+        .price-card p { color: #9a9aa2; margin-bottom: 20px; font-size: 0.95rem; }
+
+        .testimonials-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; padding: 0 8% 40px; }
 
         .testimonial-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
+            border-radius: 22px; padding: 30px;
+            opacity: 0; transform: translateY(20px);
+            transition: transform 0.35s var(--ease-liquid), box-shadow 0.35s var(--ease-liquid);
+        }
+
+        .testimonial-card.in-view { animation: cardRise 0.55s var(--ease-liquid) forwards; }
+
+        .testimonial-card:hover, .testimonial-card:active {
+            transform: translateY(-6px);
+            box-shadow: 0 24px 48px rgba(0,0,0,0.45);
         }
 
         .testimonial-card .stars { color: #f59e0b; margin-bottom: 12px; font-size: 0.9rem; }
-        .testimonial-card p { font-style: italic; color: #ccc; font-size: 0.95rem; margin-bottom: 15px; }
+        .testimonial-card p { font-style: italic; color: #cfcfd6; font-size: 0.95rem; margin-bottom: 15px; }
         .testimonial-card h5 { font-weight: 700; color: #fff; }
 
-        /* Instagram Banner Section */
-        .insta-banner {
-            padding: 20px 8% 40px;
-            text-align: center;
-        }
+        .insta-banner { padding: 20px 8% 40px; text-align: center; }
 
         .insta-box {
-            background: linear-gradient(135deg, rgba(60, 30, 40, 0.7), rgba(50, 25, 55, 0.7));
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(60, 30, 40, 0.5), rgba(50, 25, 55, 0.5));
+            border-radius: 26px;
             padding: 35px 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: var(--shadow);
+            opacity: 0; transform: translateY(20px);
         }
 
-        .insta-box h3 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            color: var(--text-color);
-        }
+        .insta-box.in-view { animation: cardRise 0.55s var(--ease-liquid) forwards; }
+
+        .insta-box h3 { font-size: 1.8rem; margin-bottom: 10px; color: var(--text-color); }
 
         .insta-btn {
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            border: 1px solid rgba(255,255,255,0.3);
             color: #fff;
             padding: 14px 32px;
-            font-size: 1.05rem;
-            font-weight: 700;
-            border: none;
+            font-size: 1.05rem; font-weight: 700;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 10px 25px rgba(220, 39, 67, 0.35);
-            transition: all 0.3s ease;
+            box-shadow: 0 10px 26px rgba(220, 39, 67, 0.35);
+            transition: transform 0.35s var(--ease-spring);
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
+            display: inline-flex; align-items: center; gap: 10px;
             margin-top: 15px;
         }
 
-        .insta-btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 15px 30px rgba(220, 39, 67, 0.5);
-        }
+        .insta-btn:hover { transform: translateY(-3px) scale(1.05); }
+        .insta-btn:active { transform: scale(0.97); }
+        .insta-btn svg { width: 20px; height: 20px; }
 
-        /* FAQ Accordion Section */
-        .faq-container {
-            max-width: 700px;
-            margin: 0 auto;
-            padding: 0 8% 40px;
-        }
+        .faq-container { max-width: 700px; margin: 0 auto; padding: 0 8% 40px; }
 
         .faq-item {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 14px;
-            margin-bottom: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: var(--shadow);
-            overflow: hidden;
-            transition: 0.3s;
+            border-radius: 16px; margin-bottom: 12px; overflow: hidden;
+            opacity: 0; transform: translateY(14px);
+            transition: background 0.3s var(--ease-liquid), border-color 0.3s var(--ease-liquid);
         }
+
+        .faq-item.in-view { animation: cardRise 0.5s var(--ease-liquid) forwards; }
+
+        .faq-item.active { background: var(--glass-bg-strong); border-color: rgba(255, 215, 0, 0.25); }
 
         .faq-question {
-            padding: 18px 20px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 18px 20px; font-weight: 600; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
             color: var(--text-color);
+            -webkit-user-select: none; user-select: none;
         }
+
+        .faq-question:active { opacity: 0.75; }
 
         .faq-answer {
-            max-height: 0;
-            overflow: hidden;
+            max-height: 0; overflow: hidden;
             padding: 0 20px;
-            color: #aaa;
-            font-size: 0.95rem;
-            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: #aeaeb6; font-size: 0.95rem;
+            transition: max-height 0.35s var(--ease-liquid), padding 0.35s var(--ease-liquid);
         }
 
-        .faq-item.active .faq-answer {
-            max-height: 150px;
-            padding-bottom: 18px;
-        }
+        .faq-item.active .faq-answer { max-height: 180px; padding-bottom: 18px; }
+        .faq-item.active .faq-question svg { transform: rotate(180deg); }
+        .faq-question svg { width: 14px; height: 14px; transition: transform 0.3s var(--ease-spring); }
 
-        .faq-item.active .faq-question i { transform: rotate(180deg); }
-        .faq-question i { transition: transform 0.3s ease; }
-
-        /* Order Form Box */
-        .order-section {
-            padding: 20px 8% 50px;
-            display: flex;
-            justify-content: center;
-        }
+        .order-section { padding: 20px 8% 50px; display: flex; justify-content: center; }
 
         .order-box {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 28px;
-            padding: 40px;
-            width: 100%;
-            max-width: 580px;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-top: 6px solid var(--primary-yellow);
+            border-radius: 30px; padding: 40px;
+            width: 100%; max-width: 580px;
+            border-top: 1px solid rgba(255,255,255,0.28);
+            opacity: 0; transform: translateY(20px);
+        }
+
+        .order-box.in-view { animation: cardRise 0.55s var(--ease-liquid) forwards; }
+
+        .order-box::before {
+            content: '';
+            position: absolute; top: 0; left: 6%; right: 6%; height: 3px;
+            border-radius: 3px;
+            background: linear-gradient(90deg, transparent, #ffd700, transparent);
         }
 
         .order-box h3 { text-align: center; font-size: 2rem; margin-bottom: 25px; color: var(--text-color); }
 
         .form-group { margin-bottom: 16px; }
-        .form-group label { display: block; font-weight: 600; margin-bottom: 6px; color: #ddd; font-size: 0.95rem; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 6px; color: #dedee3; font-size: 0.95rem; }
         .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 13px 15px;
-            border: 2px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
-            font-size: 0.95rem;
-            outline: none;
-            background: rgba(20, 20, 20, 0.8);
+            width: 100%; padding: 13px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 14px;
+            font-size: 0.95rem; outline: none;
+            background: rgba(255, 255, 255, 0.05);
             color: var(--text-color);
-            transition: 0.3s;
+            transition: border-color 0.3s var(--ease-liquid), background 0.3s var(--ease-liquid);
         }
 
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
             border-color: var(--primary-yellow);
-            background: #1a1a1a;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+            background: rgba(255, 215, 0, 0.06);
         }
+
+        .form-group select option { background: #16161a; color: #f2f2f5; }
 
         .order-box .btn { width: 100%; margin-top: 10px; justify-content: center; }
 
-        /* Floating Order Button (Right Side) */
-        .floating-order-btn {
+        .floating-btn {
             position: fixed;
-            bottom: 25px;
-            right: 25px;
-            background: linear-gradient(135deg, #25d366, #128c7e);
-            color: #fff;
-            padding: 14px 22px;
-            border-radius: 50px;
-            font-weight: 700;
-            text-decoration: none;
-            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
-            z-index: 9999;
+            bottom: 26px;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 10px;
-            animation: whatsappPulse 2s infinite ease-in-out;
-            transition: all 0.3s ease;
-        }
-
-        @keyframes whatsappPulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); }
-            50% { transform: scale(1.06); box-shadow: 0 15px 35px rgba(37, 211, 102, 0.7); }
-        }
-
-        .floating-order-btn:hover { animation-play-state: paused; transform: scale(1.1) translateY(-4px); }
-
-        /* Floating Instagram Button (Left Side) */
-        .floating-insta-btn {
-            position: fixed;
-            bottom: 25px;
-            left: 25px;
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            color: #fff;
-            padding: 14px 22px;
-            border-radius: 50px;
-            font-weight: 700;
-            text-decoration: none;
-            box-shadow: 0 10px 30px rgba(220, 39, 67, 0.4);
+            justify-content: center;
             z-index: 9999;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            animation: instaPulse 2s infinite ease-in-out;
-            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.35);
+            backdrop-filter: blur(14px) saturate(160%);
+            -webkit-backdrop-filter: blur(14px) saturate(160%);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.35), inset 0 1px 1px rgba(255,255,255,0.5);
+            transition: transform 0.35s var(--ease-spring);
+            will-change: transform;
         }
 
-        @keyframes instaPulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(220, 39, 67, 0.4); }
-            50% { transform: scale(1.06); box-shadow: 0 15px 35px rgba(220, 39, 67, 0.7); }
+        .floating-btn::before {
+            content: '';
+            position: absolute;
+            top: 8%; left: 16%;
+            width: 44%; height: 30%;
+            border-radius: 50%;
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.8), rgba(255,255,255,0) 70%);
+            pointer-events: none;
         }
 
-        .floating-insta-btn:hover { animation-play-state: paused; transform: scale(1.1) translateY(-4px); }
+        .floating-btn svg { position: relative; z-index: 2; width: 28px; height: 28px; }
 
-        /* Footer */
+        .floating-order-btn { right: 25px; background: linear-gradient(160deg, #34d67a, #128c7e); }
+        .floating-insta-btn { left: 25px; background: linear-gradient(160deg, #f09433, #bc1888); }
+
+        .floating-btn:hover { transform: scale(1.12) translateY(-4px); }
+        .floating-btn:active { transform: scale(0.92); }
+
         footer {
-            background: #000;
+            background: rgba(0,0,0,0.6);
             color: #fff;
             text-align: center;
             padding: 35px 20px;
             margin-top: 30px;
-            border-top: 5px solid var(--primary-yellow);
+            border-top: 1px solid rgba(255,215,0,0.35);
         }
 
         footer h3 { font-size: 1.6rem; margin-bottom: 6px; }
         footer p { color: #aaa; font-size: 0.9rem; }
 
-        /* Mobile Responsive */
         @media (max-width: 768px) {
             header { flex-direction: column; gap: 10px; padding: 12px 5%; }
             nav { gap: 12px; flex-wrap: wrap; justify-content: center; }
@@ -679,25 +557,33 @@
             .order-section { padding: 10px 5% 40px; }
             .order-box { padding: 25px 18px; }
             .portfolio-grid { padding: 0 5% 30px; grid-template-columns: 1fr; }
-            .floating-order-btn { bottom: 15px; right: 15px; padding: 11px 16px; font-size: 0.9rem; }
-            .floating-insta-btn { bottom: 15px; left: 15px; padding: 11px 16px; font-size: 0.9rem; }
+            .floating-btn { width: 50px; height: 50px; bottom: 16px; }
+            .floating-btn svg { width: 24px; height: 24px; }
+            .floating-order-btn { right: 16px; }
+            .floating-insta-btn { left: 16px; }
+            :root { --glass-blur: blur(10px) saturate(140%); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Top Announcement Bar -->
     <div class="announcement-bar">
         🎉 Special Offer: Free Secure Packaging & Fast Delivery on all Orders! 🎨
     </div>
 
-    <!-- Glowing Background Orbs -->
     <div class="ambient-bg">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
     </div>
 
-    <!-- Header Section -->
     <header>
         <div class="logo-container">
             <img src="logo.png" onerror="this.src='https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=100'" alt="Devartsx Logo">
@@ -709,23 +595,28 @@
             <a href="#portfolio">Portfolio</a>
             <a href="#pricing">Pricing</a>
             <a href="https://instagram.com/devartsx" target="_blank" class="nav-insta-link">
-                <i class="fa-brands fa-instagram"></i> devartsx
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                devartsx
             </a>
             <a href="#order">Order</a>
         </nav>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero" id="hero">
         <h2>Handmade Realistic <span>Sketches</span></h2>
         <p>Get custom graphite & charcoal portraits created with high precision. The ultimate timeless gift for your loved ones.</p>
         <div class="hero-buttons">
-            <a href="#order" class="btn"><i class="fa-solid fa-paintbrush"></i> Order Your Sketch</a>
-            <a href="https://instagram.com/devartsx" target="_blank" class="btn btn-insta"><i class="fa-brands fa-instagram"></i> Follow me on Instagram</a>
+            <a href="#order" class="btn">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.71 5.63l-2.34-2.34a1 1 0 00-1.41 0l-3.12 3.12L17.66 10l3.12-3.12a1 1 0 000-1.41zM3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/></svg>
+                Order Your Sketch
+            </a>
+            <a href="https://instagram.com/devartsx" target="_blank" class="btn btn-insta">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                Follow me on Instagram
+            </a>
         </div>
     </section>
 
-    <!-- How It Works Section -->
     <h2 class="section-title" id="steps">How to <span class="shimmer-text">Order</span></h2>
     <div class="steps-container">
         <div class="step-card">
@@ -745,7 +636,6 @@
         </div>
     </div>
 
-    <!-- Portfolio Grid -->
     <h2 class="section-title" id="portfolio">My <span class="shimmer-text">Portfolio</span></h2>
     <div class="portfolio-grid">
         <div class="portfolio-item" data-title="Shiv Parvati Sketch">
@@ -762,7 +652,6 @@
         </div>
     </div>
 
-    <!-- Pricing Section -->
     <h2 class="section-title" id="pricing">Sketch <span class="shimmer-text">Pricing</span></h2>
     <div class="pricing-container">
         <div class="price-card">
@@ -779,43 +668,37 @@
         </div>
     </div>
 
-    <!-- Testimonials Section -->
     <h2 class="section-title">Client <span class="shimmer-text">Reviews</span></h2>
     <div class="testimonials-container">
         <div class="testimonial-card">
-            <div class="stars">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-            </div>
+            <div class="stars">★★★★★</div>
             <p>"Ordered an A3 couple portrait for my anniversary. The detailing is just mind-blowing! Everyone loved it."</p>
             <h5>- Aman Sharma</h5>
         </div>
         <div class="testimonial-card">
-            <div class="stars">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-            </div>
+            <div class="stars">★★★★★</div>
             <p>"Superb work! The delivery was secure and the sketch looked even better than the real photo."</p>
             <h5>- Priya Verma</h5>
         </div>
     </div>
 
-    <!-- Instagram Follow Banner Section -->
     <div class="insta-banner">
         <div class="insta-box">
             <h3>Connect with us on Instagram</h3>
             <p style="color: #bbb; font-size: 0.95rem; margin-bottom: 5px;">See latest sketch reels, behind-the-scenes & daily artwork updates.</p>
             <a href="https://instagram.com/devartsx" target="_blank" class="insta-btn">
-                <i class="fa-brands fa-instagram" style="font-size: 1.3rem;"></i> Follow me on Instagram
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                Follow me on Instagram
             </a>
         </div>
     </div>
 
-    <!-- FAQ Section -->
     <h2 class="section-title">Frequently Asked <span class="shimmer-text">Questions</span></h2>
     <div class="faq-container">
         <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">
                 <span>Kitne dino mein sketch tayar ho jata hai?</span>
-                <i class="fa-solid fa-chevron-down"></i>
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
             </div>
             <div class="faq-answer">
                 Ek sketch ko banane aur dry hone mein lagbhag 3 se 5 working days lagte hain, uske baad dispatch hota hai.
@@ -824,7 +707,7 @@
         <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">
                 <span>Kya photo WhatsApp par bhejni hogi?</span>
-                <i class="fa-solid fa-chevron-down"></i>
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
             </div>
             <div class="faq-answer">
                 Haan! Form submit karne ke baad jab aap WhatsApp par redirect honge, tab wahan apni clear reference photo bhej sakte hain.
@@ -833,7 +716,7 @@
         <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">
                 <span>Frame sath mein milta hai kya?</span>
-                <i class="fa-solid fa-chevron-down"></i>
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
             </div>
             <div class="faq-answer">
                 Sketches ko safely roll karke hard safety tube mein bheja jata hai taaki damage na ho. Frame aap apne local market se easily karwa sakte hain.
@@ -841,7 +724,6 @@
         </div>
     </div>
 
-    <!-- Order Form Section -->
     <section class="order-section" id="order">
         <div class="order-box">
             <h3>Order <span class="shimmer-text">Your Sketch</span></h3>
@@ -869,36 +751,36 @@
                     <label for="notes">Special Instructions & Customisations</label>
                     <textarea id="notes" rows="3" placeholder="Any specific requirements, name writing, background changes..."></textarea>
                 </div>
-                <button type="submit" id="submitBtn" class="btn"><i class="fa-brands fa-whatsapp" style="font-size:1.3rem;"></i> Order via WhatsApp</button>
+                <button type="submit" id="submitBtn" class="btn">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.148-.67.15-.198.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.297-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.012 0C5.4 0 .06 5.339.06 11.95c0 2.107.55 4.163 1.594 5.976L0 24l6.24-1.634A11.914 11.914 0 0012.012 24c6.611 0 11.95-5.339 11.95-11.95C23.962 5.339 18.623 0 12.012 0zm0 21.75c-1.964 0-3.888-.53-5.564-1.53l-.398-.236-4.14 1.086 1.106-4.036-.26-.414a9.734 9.734 0 01-1.5-5.17c0-5.39 4.387-9.777 9.78-9.777 2.613 0 5.07 1.017 6.916 2.865a9.706 9.706 0 012.864 6.914c0 5.393-4.387 9.798-9.804 9.798z"/></svg>
+                    Order via WhatsApp
+                </button>
             </form>
         </div>
     </section>
 
-    <!-- Floating Instagram Button (Left Side) -->
-    <a href="https://instagram.com/devartsx" target="_blank" class="floating-insta-btn">
-        <i class="fa-brands fa-instagram" style="font-size: 1.4rem;"></i> Instagram
+    <a href="https://instagram.com/devartsx" target="_blank" class="floating-btn floating-insta-btn" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
     </a>
 
-    <!-- Floating Order Button (Right Side) -->
-    <a href="#order" class="floating-order-btn">
-        <i class="fa-brands fa-whatsapp" style="font-size: 1.4rem;"></i> Order Now
+    <a href="#" id="floatingOrderBtn" class="floating-btn floating-order-btn" aria-label="Order Now on WhatsApp">
+        <svg viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.148-.67.15-.198.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.297-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.012 0C5.4 0 .06 5.339.06 11.95c0 2.107.55 4.163 1.594 5.976L0 24l6.24-1.634A11.914 11.914 0 0012.012 24c6.611 0 11.95-5.339 11.95-11.95C23.962 5.339 18.623 0 12.012 0zm0 21.75c-1.964 0-3.888-.53-5.564-1.53l-.398-.236-4.14 1.086 1.106-4.036-.26-.414a9.734 9.734 0 01-1.5-5.17c0-5.39 4.387-9.777 9.78-9.777 2.613 0 5.07 1.017 6.916 2.865a9.706 9.706 0 012.864 6.914c0 5.393-4.387 9.798-9.804 9.798z"/></svg>
     </a>
 
-    <!-- Footer -->
     <footer>
         <h3>Devarts<span class="shimmer-text">x</span></h3>
         <p>&copy; 2026 Devartsx. All Rights Reserved.</p>
     </footer>
 
-    <!-- Interactive Script -->
     <script>
-        // FAQ Accordion Toggle
+        const WHATSAPP_NUMBER = "917827417956";
+        const DEFAULT_MESSAGE = "Hi Devartsx! I want to order a custom handmade sketch. Please share more details.";
+
         function toggleFaq(element) {
             const parent = element.parentElement;
             parent.classList.toggle('active');
         }
 
-        // Send Order Direct to WhatsApp
         function sendToWhatsApp(event) {
             event.preventDefault();
 
@@ -907,8 +789,7 @@
             const size = document.getElementById('size').value;
             const address = document.getElementById('address').value;
             const notes = document.getElementById('notes').value || 'None';
-            
-            const whatsappNumber = "917827417956";
+
             const message = `*NEW SKETCH ORDER - DEVARTSX*\n\n` +
                             `*Name:* ${name}\n` +
                             `*Phone:* ${phone}\n` +
@@ -917,8 +798,34 @@
                             `*Customisation Instructions:* ${notes}\n\n` +
                             `*(Note: Reference photo will be shared here)*`;
 
-            window.location.href = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`;
+            window.location.href = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}`;
         }
+
+        document.getElementById('floatingOrderBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(DEFAULT_MESSAGE)}`;
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const revealTargets = document.querySelectorAll(
+                '.section-title, .step-card, .portfolio-item, .price-card, .testimonial-card, .faq-item, .order-box, .insta-box'
+            );
+
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('in-view');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+                revealTargets.forEach(el => observer.observe(el));
+            } else {
+                revealTargets.forEach(el => el.classList.add('in-view'));
+            }
+        });
     </script>
 </body>
 </html>
